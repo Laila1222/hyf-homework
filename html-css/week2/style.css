@@ -167,7 +167,7 @@ footer {
 .footer-column {
     width: 15%;
     margin: 2rem;
-    justify-content: space-between
+    justify-content: space-between;
 }
 
 .footer-headline {
