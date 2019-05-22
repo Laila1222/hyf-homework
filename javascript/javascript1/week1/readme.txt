@@ -1,0 +1,1 @@
+This is the homework for Hack Your Future JavaScript module week 1. 
