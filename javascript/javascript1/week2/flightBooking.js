@@ -20,3 +20,16 @@ function getFormalFullName(firstname, surname, useFormalName) {
 }
 
 console.log(getFormalFullName("Lilla", "Kőrösi", true));
+
+
+// Improved version
+
+// Flight booking fullname function
+function getFullname (firstname, surname, useFormalName) {
+    if (useFormalName == true) {
+        return "Lord " + firstname + " " + surname; 
+    }
+    return firstname + " " + surname;
+};
+const fullname1 = getFullname("Lilla", "Kőrösi", false);
+console.log(fullname1);
