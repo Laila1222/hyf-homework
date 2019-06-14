@@ -1,57 +1,46 @@
 console.log('Script loaded');
 
-// console.log(getAvailableProducts());
-
-let testProductNamesWeird = ["SomethingAmazing", "Flat screen", "Mobile phone", "Wallet", "Visible Soap", "Dotted Kitten", "Open flowers", "Clean dirt"];
-const testProductNames = ['Flat screen', 'Mobile phone', 'Wallet'];
-//Select product ul
-let productUl = document.querySelector("section.products ul");
-
-
-
-
 const products = getAvailableProducts();
-console.log(products)
 renderProducts(products);
 
 
 function renderProducts(array) {
-    // Create main Ul and Li for products
-    let mainUlOfProducts = document.querySelector(".products ul");
-    
-    
-    
-
     for (let productItem of array) {
-    //Countries are seperated by ', '
+    // Create main Ul and Li for products
+    const mainUlOfProducts = document.querySelector(".products ul");
     const mainLiOfProducts = document.createElement("li");
-    let countryArrayToString = productItem.shipsTo.join(', ');
-    // mainLiOfProducts.innerHTML = productItem.name + " | " + productItem.price + " | " + productItem.rating + " | " + countryArrayToString;
-    mainUlOfProducts.appendChild(mainLiOfProducts);
-    //Create ul
     const childUl = document.createElement("ul");
+    mainUlOfProducts.appendChild(mainLiOfProducts);
     mainLiOfProducts.appendChild(childUl);
-    //create Li
-    // const childLi = document.createElement("li");
-    // childUl.appendChild(childLi);
     
-    //Add value to childLi
-    function addValue(value) {
-        childLi.innerHTML = value;
-    };
-    
-    function createLi(value, parent, id, className) {
-        let newLi = document.createElement("li");
-        newLi.innerHTML = value;
-        newLi.id = id;
-        newLi.class = className;
-        parent.appendChild(newLi);
-    };
+    // Add list with product information to childUl
     createLi(productItem.name, childUl, "", "");
     createLi(productItem.price, childUl, "", "");
-    createLi(productItem.rate, childUl, "", "");
-    
-
-
+    createLi(productItem.rating, childUl, "", "");
+    createLi("Ships to", childUl, "shipsTo", "");
     }
 }
+
+//Create ul for Shipto ----> something is off here :/ - still working on it! 
+function createUltoShip() {
+    const shipsUl = document.createElement("ul");
+    shipsToLine.appendChild(shipsUl);  
+    
+    for (let items of products) {
+        console.log(items.shipsTo)
+        let countries = document.createElement("li");
+        countries.innerHTML = items.shipsTo;
+        shipsUl.appendChild(countries);
+        console.log(items.shipsTo) 
+    }  
+}
+//Gives the countries to shipTo
+const shipsToLine = document.getElementById("shipsTo");
+function createLi(value, parent, id, className) {
+    newLi = document.createElement("li");
+    newLi.innerHTML = value;
+    newLi.id = id;
+    newLi.class = className;
+    parent.appendChild(newLi);
+};
+createUltoShip();
