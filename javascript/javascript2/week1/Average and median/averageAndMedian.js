@@ -10,7 +10,6 @@ function average(arr) {
         sum += numbers; 
         averageNumber = sum / arr.length;
     }
-
     return averageNumber.toFixed(2);
  }
 
@@ -23,27 +22,30 @@ function average(arr) {
     });
     const indexNumber = Math.round(arr.length / 2);
     let middleNumber = 0;
-    
+
     for (let i = 0; i < arr.length; i++) {
         middleNumber = arr[indexNumber-1];
     }
-    
     return middleNumber;
  }
 
 median(housePrices);
 
 //Show on webpage
-let headline = document.createElement('h1');
+
+//Create headline
+const headline = document.createElement('h1');
 headline.innerHTML = "Average and median";
 document.body.appendChild(headline);
 
-let ul = document.createElement('ul');
+//Create list
+const ul = document.createElement('ul');
 ul.innerHTML = "House prices";
 ul.style.fontWeight = 'bold';
 
 document.body.appendChild(ul);
 
+//Display the house prices in the list
 for (let prices of housePrices) {
     let li = document.createElement('li');
     li.innerHTML = prices;
@@ -52,6 +54,7 @@ for (let prices of housePrices) {
     ul.appendChild(li);
 };
 
+// Show average and median
 let averageHeadline = document.createElement('h3');
 averageHeadline.innerHTML = 'Average of house prices: ' + average(housePrices);
 document.body.appendChild(averageHeadline);
