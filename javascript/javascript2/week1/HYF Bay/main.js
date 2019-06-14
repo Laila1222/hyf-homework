@@ -23,11 +23,35 @@ function renderProducts(array) {
     
 
     for (let productItem of array) {
-        //Countries are seperated by ', '
+    //Countries are seperated by ', '
     const mainLiOfProducts = document.createElement("li");
     let countryArrayToString = productItem.shipsTo.join(', ');
-    mainLiOfProducts.innerHTML = productItem.name + " | " + productItem.price + " | " + productItem.rating + " | " + countryArrayToString;
+    // mainLiOfProducts.innerHTML = productItem.name + " | " + productItem.price + " | " + productItem.rating + " | " + countryArrayToString;
     mainUlOfProducts.appendChild(mainLiOfProducts);
+    //Create ul
+    const childUl = document.createElement("ul");
+    mainLiOfProducts.appendChild(childUl);
+    //create Li
+    // const childLi = document.createElement("li");
+    // childUl.appendChild(childLi);
+    
+    //Add value to childLi
+    function addValue(value) {
+        childLi.innerHTML = value;
+    };
+    
+    function createLi(value, parent, id, className) {
+        let newLi = document.createElement("li");
+        newLi.innerHTML = value;
+        newLi.id = id;
+        newLi.class = className;
+        parent.appendChild(newLi);
+    };
+    createLi(productItem.name, childUl, "", "");
+    createLi(productItem.price, childUl, "", "");
+    createLi(productItem.rate, childUl, "", "");
+    
+
 
     }
 }
