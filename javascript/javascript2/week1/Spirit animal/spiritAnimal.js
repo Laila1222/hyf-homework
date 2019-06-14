@@ -17,22 +17,14 @@ function whenClicked() {
 }
 
 // Select how to display the name
-
 function displayTypes() {
         let options = document.getElementsByName("options");
         if (options[0].checked) {
-                btn.addEventListener('click', whenClicked); 
-                
-        }
-
-        else if (options[1].checked) {
+                btn.addEventListener('click', whenClicked);  
+        } else if (options[1].checked) {
                 inputField.addEventListener("mouseover", whenClicked);
-                
-        }
-
-        else if (options[2].checked) {
-                inputField.oninput = function() {whenClicked()};
-                
+        } else if (options[2].checked) {
+                inputField.oninput = function() {whenClicked()};     
         }
 }
 
