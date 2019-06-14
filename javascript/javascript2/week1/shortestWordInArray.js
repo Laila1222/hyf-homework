@@ -1,6 +1,7 @@
-    //Find the shortest word
+//Find the shortest word
 const danishWhords = ['bil', 'plante', 'kaffe', 'bog', 'ø'];
 
+//Find the shortest word
 function theShortestWord (arr) {
     let shortLength = Infinity;
     let shortest = "";
@@ -20,6 +21,7 @@ function theShortestWord (arr) {
 
 console.log(theShortestWord(danishWhords));
 
+//Find the longest word
 function longestWord (arr) {
     let longLength = 0;
     let longest = "";
