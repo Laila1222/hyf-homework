@@ -19,7 +19,12 @@ function renderProducts(array) {
 
     //create ul and li for shipto countries
     const shipToUl = createElement("ul", "", shipToLi, "", "");
-    const countries = createElement("li", productItem.shipsTo, shipToUl, "", "countries");
+    
+    //displaying countries in different li
+    for (let country of productItem.shipsTo) {
+        const countries = createElement("li", country, shipToUl, "", "countries");
+    }
+    
     }
 }
 
