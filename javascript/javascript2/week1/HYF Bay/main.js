@@ -12,19 +12,18 @@ function renderProducts(array) {
     const childUl = createElement("ul", "", mainLi, "", "childUl");
  
     //Add list with product information to childUl
-    createElement("li", productItem.name, childUl, "", "");
-    createElement("li", productItem.price, childUl, "", "");
-    createElement("li", productItem.rating, childUl, "", "");
-    const shipToLi = createElement("li", "Ships to", childUl, "", "shipsTo");
+    createElement("li", "Product name: " + productItem.name, childUl, "", "");
+    createElement("li", "Price: " + productItem.price, childUl, "", "");
+    createElement("li", "Rating: " + productItem.rating, childUl, "", "");
+    const shipToLi = createElement("li", "Ships to:", childUl, "", "shipsTo");
 
     //create ul and li for shipto countries
     const shipToUl = createElement("ul", "", shipToLi, "", "");
     
     //displaying countries in different li
-    for (let country of productItem.shipsTo) {
+    for (const country of productItem.shipsTo) {
         const countries = createElement("li", country, shipToUl, "", "countries");
     }
-    
     }
 }
 
