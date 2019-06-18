@@ -18,7 +18,23 @@ const numberOfMovies = (movies.filter(movie => movie.year >= 1980 && movie.year 
 
 
 //5. TAg based on rating ?????????????????????????????????????????????????????????????????
+function tagMovies() {
+   for (let objects of movies) {
+       if (objects.rating >= 7) {
+        objects.tag = "good"
+       } else if (objects.rating >= 4 &&  objects.rating < 7){
+        objects.tag = "average"
+       } else {
+        objects.tag = "bad"
+       }
+   };
+   return movies;
+};
 
+tagMovies();
+console.log(movies);
+
+//6.  Using chaining, first filter the movies array to only contain the movies rated higher than 6. Now map the movies array to only the rating of the movies.
 
 let okayMovies = movies
     .filter(movie => movie.rating > 6)
@@ -60,7 +76,7 @@ let splitByWords = movieTitles.map(movie => movie.split(' '));
  
 // console.log(splitByWords);
 
-//Checks for duplicates
+//8. Return the most duplicated value
 function onlyUnique(value, index, self) { 
     return self.indexOf(value) !== index;
 }
@@ -112,6 +128,12 @@ function count() {
 let wordsAndTheirCount = count();
 // console.log(wordsAndTheirCount);
 
+//Find with sort method ???????????????????????????????????????????????????
+
+    
+
+
+//With not sort method
 //Place numbers into one array
 let numbersArray = wordsAndTheirCount.map(items => items.counts);
 //Find the highest number
@@ -120,7 +142,7 @@ let highestNumber = Math.max.apply(null, numbersArray);
 let indexOfHighestNumber = numbersArray.indexOf(highestNumber);
 //Find the corresponding word
 let wordUsedMostTimes = wordsAndTheirCount[indexOfHighestNumber];
-console.log(wordUsedMostTimes);
+// console.log(wordUsedMostTimes);
 //Most used word is 'The' - 1401 times.
 
 
@@ -130,16 +152,18 @@ console.log(wordUsedMostTimes);
 
 //Average rating of movies
 
-// function averageRating() {
-//     const votes = movies.map(movie => movie.votes);
-//     const numberOfVotes = votes.length;
+function averageRating() {
+    const votes = movies.map(movie => movie.votes);
+    const numberOfVotes = votes.length;
     
-//     const rating = movies.map(movie => movie.rating);
-//     const sumRating = rating.reduce((accumulator, currentValue) => {
-//     return accumulator + currentValue;
-// }); 
-//     return sumRating / numberOfVotes;
-// }
+    const rating = movies.map(movie => movie.rating);
+    const sumRating = rating.reduce((accumulator, currentValue) => {
+    return accumulator + currentValue;
+}); 
+    return sumRating / numberOfVotes;
+}
 
-// console.log(averageRating());
+// console.log(averageRating()); //6.626827026198841
+
+
 
