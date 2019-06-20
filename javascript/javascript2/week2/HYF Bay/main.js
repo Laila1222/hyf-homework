@@ -44,62 +44,57 @@ const searchBar = document.querySelector ('.search input');
 
 searchBar.addEventListener ('keyup', filterForProductNames);
 
+
+
 function filterForProductNames () {
- 
-  const searchTerm = document.querySelector ('div.search input').value.toLowerCase ().trim();
+  const searchTerm = document
+    .querySelector ('div.search input')
+    .value.toLowerCase ()
+    .trim ();
   if (!searchTerm) {
-    renderProducts(allProducts);
+    renderProducts (allProducts);
   }
   // console.log(searchTerm)
-  const matchedProducts = allProducts.filter (product => product.name.toLowerCase().startsWith(searchTerm));
-
-  // console.log(matchedProducts)
-
-  renderProducts(matchedProducts)
+  const matchedProducts = allProducts.filter (product =>
+    product.name.toLowerCase ().startsWith (searchTerm)
+  );
+  renderProducts (matchedProducts);
 }
-
-filterForProductNames();
-
-
 
 
 //Select sorting options
-const sortOptions = document.querySelector('div.sort select');
+const sortOptions = document.querySelector ('div.sort select');
 //Event listener
-sortOptions.addEventListener('change', selectOption);
+sortOptions.addEventListener ('change', selectOption);
 
-function selectOption() {
+function selectOption () {
   let matchedProducts;
   if (sortOptions.value === 'cheap') {
-    matchedProducts = allProducts.sort((a, b) => a.price - b.price);
-    renderProducts(matchedProducts);
-  }  else if (sortOptions.value === 'name') {
-      matchedProducts = allProducts.sort((a, b) => a.name > b.name ? 1 : -1);
-      renderProducts(matchedProducts);
+    matchedProducts = allProducts.sort ((a, b) => a.price - b.price);
+    renderProducts (matchedProducts);
+  } else if (sortOptions.value === 'name') {
+    matchedProducts = allProducts.sort ((a, b) => (a.name > b.name ? 1 : -1));
+    renderProducts (matchedProducts);
   } else if (sortOptions.value === 'expensive') {
-    matchedProducts = allProducts.sort((a, b) => b.price - a.price);
-    renderProducts(matchedProducts);
+    matchedProducts = allProducts.sort ((a, b) => b.price - a.price);
+    renderProducts (matchedProducts);
   }
 }
 
-//Ships to
-const selectShipsToOption = document.querySelector('div.filters select');
-selectShipsToOption.addEventListener('change', selectCountry);
+//Ships to - filter where the products are shipped to.
+const selectShipsToOption = document.querySelector ('div.filters select');
+selectShipsToOption.addEventListener ('change', selectCountry);
 
-function selectCountry() {
+function selectCountry () {
   let matchedProducts;
   let countryInput = selectShipsToOption.value;
-  
-  console.log(countryInput)
-  
-  console.log(matchedProducts)
-  if (countryInput === 'all'){
-    
-    renderProducts(allProducts);
+  if (countryInput === 'all') {
+    renderProducts (allProducts);
   } else {
-    matchedProducts = allProducts.filter(product => product.shipsTo.includes(countryInput));
-    renderProducts(matchedProducts);
+    matchedProducts = allProducts.filter (product =>
+      product.shipsTo.includes (countryInput)
+    );
+    renderProducts (matchedProducts);
   }
-
 }
-selectCountry();
+
