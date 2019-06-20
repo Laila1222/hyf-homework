@@ -1,18 +1,6 @@
 console.log ('Script loaded');
 
 const allProducts = getAvailableProducts ();
-console.log(allProducts)
-
-const shipsTo = allProducts.map(a => a.shipsTo);
-console.log(shipsTo)
-
-
-
-
-
-
-
-
 
 const productsUl = document.querySelector ('section.products ul');
 // console.log (productsUl);
@@ -115,6 +103,3 @@ function selectCountry() {
 
 }
 selectCountry();
-
-const li = document.querySelector("ul > li.name")
-console.log(li)
