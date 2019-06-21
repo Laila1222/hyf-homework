@@ -1,8 +1,6 @@
 console.log ('Script loaded');
 
 const allProducts = getAvailableProducts ();
-const foo = allProducts
-
 
 const productsUl = document.querySelector ('section.products ul');
 // console.log (productsUl);
@@ -18,18 +16,17 @@ function renderProducts (products) {
 
     li.innerHTML = `
             <ul>
-                <li class="productName">${product.name}</li>
-                <li class="productPrice">${product.price}</li>
+                <li>${product.name}</li>
+                <li>${product.price}</li>
                 <li>${product.rating}</li>
                 <ul class="ships-to">${shipsToHTML}</ul>
-                <li><button class="shoppingCartBtn">Add to cart</button></li>
             </ul>
         `;
     productsUl.appendChild (li);
   });
 }
 
-renderProducts (allProducts);
+// renderProducts (allProducts);
 
 function createElement (tag, value, parent, id, className) {
   newElement = document.createElement (tag);
@@ -40,14 +37,12 @@ function createElement (tag, value, parent, id, className) {
   return newElement;
 }
 
-renderProducts (allProducts);
+// renderProducts (allProducts);
 
-// Filter products
+// Filter product search on typing
 const searchBar = document.querySelector ('.search input');
 
 searchBar.addEventListener ('keyup', filterForProductNames);
-
-
 
 function filterForProductNames () {
   const searchTerm = document
@@ -57,17 +52,15 @@ function filterForProductNames () {
   if (!searchTerm) {
     renderProducts (allProducts);
   }
-  // console.log(searchTerm)
   const matchedProducts = allProducts.filter (product =>
-    product.name.toLowerCase ().startsWith (searchTerm)
+    product.name.toLowerCase ().includes (searchTerm)
   );
   renderProducts (matchedProducts);
 }
 
-
 //Select sorting options
 const sortOptions = document.querySelector ('div.sort select');
-//Event listener
+
 sortOptions.addEventListener ('change', selectOption);
 
 function selectOption () {
@@ -84,68 +77,73 @@ function selectOption () {
   }
 }
 
-//Ships to - filter where the products are shipped to.
+//Showing the product that are shipped to a chosen country
 const selectShipsToOption = document.querySelector ('div.filters select');
 selectShipsToOption.addEventListener ('change', selectCountry);
 
 function selectCountry () {
   let matchedProducts;
-  const countryInput = selectShipsToOption.value;
+  const countryInput = convertToLowerCase (selectShipsToOption.value);
   if (countryInput === 'all') {
     renderProducts (allProducts);
   } else {
-    // countriesOfProducts = 
-    // foo = allProducts.map(product => product.name);
-    console.log(foo)
-    matchedProducts = allProducts.filter((item) =>
-      item.shipsTo.toLowerCase().includes(countryInput))
-    
+    matchedProducts = allProducts.filter (item => {
+      return item.shipsTo.some (shippingCountry => {
+        return convertToLowerCase (shippingCountry) === countryInput;
+      });
+    });
     renderProducts (matchedProducts);
   }
 }
 
-//Add picture of country when selected
-// const pictureDatabase = [{name: 'denmark', image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Flag_of_Denmark.svg/1200px-Flag_of_Denmark.svg.png"},
-//    {name: 'Sweden', src: 'https://google.com'}];
-// const divForPicture = document.querySelector('div.picture');
-// function addPicture() {
-//   const countryInput =  selectShipsToOption.value;
-//   const pictureName = pictureDatabase.name;
-//   if (countryInput === pictureName) {
-//     const pictureElement = document.createElement('img');
-//     pictureElement.src = image;
-//     divForPicture.appendChild('pictureElement'); 
-//   }
-// }
-
-//Add to cart
-// theButton = document.querySelector('button.theButton');
-// console.log(theButton)
-const cartButton = document.querySelector('button.shoppingCartBtn');
-console.log(cartButton)
-cartButton.addEventListener('click', addToCart);
-
-
-function addToCart() {
-
-  //collect data from all products list
-  // const addedProductName = document.querySelector('li.productName').innerHTML;
-  const addedProductPrice = document.querySelector('li.productPrice').innerHTML;
-  console.log(addedProductName);
-  //insert it into shopping cart
-  //create li in shopping cart
-  // const shoppingCartList = document.createElement('li');
-  // shoppingCartList.innerHTML = addedProductName + ' ' + addedProductPrice;
-  // const shoppingCartUl = document.querySelector('section.cart ul');
-  // shoppingCartUl.appendChild(shoppingCartList);
-
-  
-
+function convertToLowerCase (str) {
+  return str.trim ().toLocaleLowerCase ();
 }
 
+//Price range
+const range = document.querySelector ('div.price input');
+
+
+range.addEventListener ('change', filterProductsAfterPrice ());
+//create label that changes according to the range input value
 
 
 
 
+function filterProductsAfterPrice () {
+  const val = range.value;
 
+  let matchedProducts;
+  let rangeLabel = document.querySelector('div.price label');
+  let labelText = "";
 
+  switch (val) {
+    case "0":
+      matchedProducts = allProducts.filter (product => product.price <= 500);
+      labelText = "Cheapest";
+      break;
+    case "1":
+      matchedProducts = allProducts.filter (product => product.price <= 1500);
+      labelText = "Cheaper"
+      break;
+    case "2":
+      matchedProducts = allProducts.filter (product => product.price <= 3000);
+      labelText = "Cheap"
+      break;
+    case "3":
+      matchedProducts = allProducts.filter (product => product.price <= 5000);
+      labelText = "Average price"
+      break;
+    case "4":
+      matchedProducts = allProducts.filter (product => product.price <= 7000);
+      labelText = "Higher price"
+      break;
+    case "5":
+      matchedProducts = allProducts;
+      labelText = "All products and prices"
+      break;
+  }
+  renderProducts (matchedProducts);
+  rangeLabel.innerHTML = labelText;
+
+}
