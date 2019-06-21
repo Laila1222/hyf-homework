@@ -14,8 +14,8 @@ function average (arr) {
   let sum = 0;
   let averageNumber = 0;
 
-  for (let numbers of arr) {
-    sum += numbers;
+  for (let number of arr) {
+    sum += number;
     averageNumber = sum / arr.length;
   }
   return averageNumber.toFixed (2);
