@@ -1,6 +1,8 @@
 console.log ('Script loaded');
 
 const allProducts = getAvailableProducts ();
+const foo = allProducts
+
 
 const productsUl = document.querySelector ('section.products ul');
 // console.log (productsUl);
@@ -16,10 +18,11 @@ function renderProducts (products) {
 
     li.innerHTML = `
             <ul>
-                <li>${product.name}</li>
-                <li>${product.price}</li>
+                <li class="productName">${product.name}</li>
+                <li class="productPrice">${product.price}</li>
                 <li>${product.rating}</li>
                 <ul class="ships-to">${shipsToHTML}</ul>
+                <li><button class="shoppingCartBtn">Add to cart</button></li>
             </ul>
         `;
     productsUl.appendChild (li);
@@ -87,14 +90,62 @@ selectShipsToOption.addEventListener ('change', selectCountry);
 
 function selectCountry () {
   let matchedProducts;
-  let countryInput = selectShipsToOption.value;
+  const countryInput = selectShipsToOption.value;
   if (countryInput === 'all') {
     renderProducts (allProducts);
   } else {
-    matchedProducts = allProducts.filter (product =>
-      product.shipsTo.includes (countryInput)
-    );
+    // countriesOfProducts = 
+    // foo = allProducts.map(product => product.name);
+    console.log(foo)
+    matchedProducts = allProducts.filter((item) =>
+      item.shipsTo.toLowerCase().includes(countryInput))
+    
     renderProducts (matchedProducts);
   }
 }
+
+//Add picture of country when selected
+// const pictureDatabase = [{name: 'denmark', image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Flag_of_Denmark.svg/1200px-Flag_of_Denmark.svg.png"},
+//    {name: 'Sweden', src: 'https://google.com'}];
+// const divForPicture = document.querySelector('div.picture');
+// function addPicture() {
+//   const countryInput =  selectShipsToOption.value;
+//   const pictureName = pictureDatabase.name;
+//   if (countryInput === pictureName) {
+//     const pictureElement = document.createElement('img');
+//     pictureElement.src = image;
+//     divForPicture.appendChild('pictureElement'); 
+//   }
+// }
+
+//Add to cart
+// theButton = document.querySelector('button.theButton');
+// console.log(theButton)
+const cartButton = document.querySelector('button.shoppingCartBtn');
+console.log(cartButton)
+cartButton.addEventListener('click', addToCart);
+
+
+function addToCart() {
+
+  //collect data from all products list
+  // const addedProductName = document.querySelector('li.productName').innerHTML;
+  const addedProductPrice = document.querySelector('li.productPrice').innerHTML;
+  console.log(addedProductName);
+  //insert it into shopping cart
+  //create li in shopping cart
+  // const shoppingCartList = document.createElement('li');
+  // shoppingCartList.innerHTML = addedProductName + ' ' + addedProductPrice;
+  // const shoppingCartUl = document.querySelector('section.cart ul');
+  // shoppingCartUl.appendChild(shoppingCartList);
+
+  
+
+}
+
+
+
+
+
+
 
