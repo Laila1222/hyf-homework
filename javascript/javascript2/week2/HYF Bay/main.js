@@ -1,15 +1,13 @@
 console.log ('Script loaded');
-
+// Variables
 const allProducts = getAvailableProducts ();
-
 const productsUl = document.querySelector ('section.products ul');
-// console.log (productsUl);
 
+//Render products
 function renderProducts (products) {
   productsUl.innerHTML = '';
   products.forEach (product => {
     const li = document.createElement ('li');
-
     const shipsToHTML = product.shipsTo.reduce (
       (acc, country) => `<li>${acc}</li><li>${country}</li>`
     );
@@ -22,10 +20,26 @@ function renderProducts (products) {
                 <ul class="ships-to">${shipsToHTML}</ul>
             </ul>
         `;
+    //Create and append button
+    const btn = document.createElement ('button');
+    btn.innerHTML = 'Add to cart';
+    li.appendChild (btn);
+    btn.addEventListener ('click', () => {
+      const cartUl = document.querySelector ('section.cart ul');
+      const cartLi = document.createElement ('li');
+      cartLi.innerHTML = `
+                  <ul>
+                    <li class="productOnCartName">${product.name}</li>
+                    <li class="productOnCartPrice">${product.price}</li>
+                  </ul>
+                `;
+      cartUl.appendChild (cartLi);
+    });
     productsUl.appendChild (li);
   });
 }
 
+//Create new element
 function createElement (tag, value, parent, id, className) {
   newElement = document.createElement (tag);
   newElement.innerHTML = value;
@@ -37,7 +51,7 @@ function createElement (tag, value, parent, id, className) {
 
 // Filter product search on typing
 const searchBar = document.querySelector ('.search input');
-
+//Event Listener for typing searchword
 searchBar.addEventListener ('keyup', filterForProductNames);
 
 function filterForProductNames () {
@@ -56,7 +70,7 @@ function filterForProductNames () {
 
 //Select sorting options
 const sortOptions = document.querySelector ('div.sort select');
-
+//Event listener for selecting sort options
 sortOptions.addEventListener ('change', selectOption);
 
 function selectOption () {
@@ -75,6 +89,7 @@ function selectOption () {
 
 //Showing the product that are shipped to a chosen country
 const selectShipsToOption = document.querySelector ('div.filters select');
+//Event listener for choosing a country
 selectShipsToOption.addEventListener ('change', selectCountry);
 
 function selectCountry () {
