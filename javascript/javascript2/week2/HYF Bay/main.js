@@ -26,8 +26,6 @@ function renderProducts (products) {
   });
 }
 
-// renderProducts (allProducts);
-
 function createElement (tag, value, parent, id, className) {
   newElement = document.createElement (tag);
   newElement.innerHTML = value;
@@ -36,8 +34,6 @@ function createElement (tag, value, parent, id, className) {
   parent.appendChild (newElement);
   return newElement;
 }
-
-// renderProducts (allProducts);
 
 // Filter product search on typing
 const searchBar = document.querySelector ('.search input');
@@ -100,50 +96,45 @@ function convertToLowerCase (str) {
   return str.trim ().toLocaleLowerCase ();
 }
 
-//Price range
+//Make a change on the webpage: Price range - create label that changes according to the range input value
 const range = document.querySelector ('div.price input');
 
-
 range.addEventListener ('change', filterProductsAfterPrice ());
-//create label that changes according to the range input value
-
-
-
 
 function filterProductsAfterPrice () {
   const val = range.value;
 
   let matchedProducts;
-  let rangeLabel = document.querySelector('div.price label');
-  let labelText = "";
+  let rangeLabel = document.querySelector ('div.price label');
+  let labelText = '';
 
   switch (val) {
-    case "0":
+    case '0':
       matchedProducts = allProducts.filter (product => product.price <= 500);
-      labelText = "Cheapest";
+      labelText = 'Cheapest';
       break;
-    case "1":
+    case '1':
       matchedProducts = allProducts.filter (product => product.price <= 1500);
-      labelText = "Cheaper"
+      labelText = 'Cheaper';
       break;
-    case "2":
+    case '2':
       matchedProducts = allProducts.filter (product => product.price <= 3000);
-      labelText = "Cheap"
+      labelText = 'Cheap';
       break;
-    case "3":
+    case '3':
       matchedProducts = allProducts.filter (product => product.price <= 5000);
-      labelText = "Average price"
+      labelText = 'Average price';
       break;
-    case "4":
+    case '4':
       matchedProducts = allProducts.filter (product => product.price <= 7000);
-      labelText = "Higher price"
+      labelText = 'Higher price';
       break;
-    case "5":
+    case '5':
       matchedProducts = allProducts;
-      labelText = "All products and prices"
+      labelText = 'All products and prices';
       break;
   }
+
   renderProducts (matchedProducts);
   rangeLabel.innerHTML = labelText;
-
 }
