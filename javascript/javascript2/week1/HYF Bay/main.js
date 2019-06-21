@@ -21,7 +21,13 @@ function renderProducts (array) {
 
     //displaying countries in different li
     for (const country of productItem.shipsTo) {
-      const countries = createElement ('li', country, shipToUl, '', 'countries');
+      const countries = createElement (
+        'li',
+        country,
+        shipToUl,
+        '',
+        'countries'
+      );
     }
   }
 }
