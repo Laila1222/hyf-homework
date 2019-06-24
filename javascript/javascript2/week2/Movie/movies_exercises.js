@@ -47,8 +47,14 @@ const moviesContainingName = movies.filter (
     movie.title.includes ('Alien') ||
     movie.title.includes ('Surfer')
 );
-
 // console.log(moviesContaining.length);
+
+//Improved solution
+const searchKeyWords = ['Benjamin', 'Surfer', 'Alien'];
+const moviesContainingSearchKeywords = movies.filter(movie => searchKeyWords.some(keyword => movie.title.toLocaleLowerCase().includes(keyword.toLocaleLowerCase())));
+// console.log(moviesContainingSearchKeywords.length);
+
+
 
 //7. Create an array of movies where a word in the title is duplicated. Fx "Star Wars: The Clone Wars" the word Wars is duplicated.
 //Split movie titles by words
@@ -100,10 +106,10 @@ function flatten (arr) {
 // console.log(flatten(splitByWords));
 
 //Find duplicates
-const duplicates = inOneArray.filter (onlyUnique);
+const duplicates = inOneArray.filter (onlyDuplicates);
 // console.log(duplicates);
 
-function onlyUnique (value, index, self) {
+function onlyDuplicates (value, index, self) {
   return self.indexOf (value) !== index;
 }
 
@@ -152,6 +158,45 @@ const indexOfHighestNumber = numbersArray.indexOf (highestNumber);
 //Find the corresponding word
 const wordUsedMostTimes = wordsAndTheirCount[indexOfHighestNumber];
 // console.log(wordUsedMostTimes);
+
+//Most often repeated word in one title
+function splitIntoWords(str, IGNORE_CASE = false) {
+  //if casing is to be ignored, convert into lower case
+  if (IGNORE_CASE) {
+    str = str.toLocaleLowerCase();
+  }
+  //Split the string
+  return str.split(/[^a-z0-9]+/gi).filter(word => word.length);
+}
+
+function findDuplicateWords(str, IGNORE_CASE) {
+  //Convert string into list of words
+  const wordsArray = splitIntoWords(str, IGNORE_CASE);
+  //Count each word
+  let countsDict = {};
+
+  for (const word of wordsArray) {
+    if (!countsDict[word]) {
+      //word is seen for the first time
+      countsDict[word] = 1;
+    } else {
+      //word gets repeated
+      countsDict += 1
+    }
+  }
+
+  const duplicateWords = Object.entries(countsDict)
+    .map(([word, count]) => ({word, count}))
+    .filter(obj => obj.count > 1);
+  duplicateWords.sort((a, b) => b.count - a.count);
+  //Return the array if duplicates are found
+  if (duplicateWords.length) {
+    return duplicateWords;
+  }
+}
+
+const moviesWithDuplicatWordsInTitles = movies.filter(movie => findDuplicateWords(movie.title, true));
+console.log(`moviesWithDuplicateWordsInTitles = `, moviesWithDuplicatWordsInTitles);
 
 //9. Average rating of movies
 
