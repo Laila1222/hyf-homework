@@ -10,62 +10,101 @@ function getSeconds() {
 const gameShouldRunFor = selectSeconds.addEventListener('change', getSeconds);
 
 
+let seconds = getSeconds() * 1000;
 
 
 // Count how many times have s and l been pressed. 
-const displayNumberOfPressesLeft = document.querySelector('.counterLeft');
-const displayNumberOfPressesRight = document.querySelector('.counterRight');
+let displayNumberOfPressesLeft = document.querySelector('.counterLeft');
+let displayNumberOfPressesRight = document.querySelector('.counterRight');
 let countS = 0;
 let countL = 0;
+// startButton.addEventListener('click', gameStart);
+// startButton.addEventListener('click', removeGameStart);
 
-function gameStart() {
+
+
+
+
+// function gameStart() {
+//     document.addEventListener('keydown', event => {
+//         let key = event.key.toLocaleLowerCase();
+        
+        
+//         if (key === 's') {
+//             countS++;
+//             console.log(countS);
+//         } else if (key === 'l') {
+//             countL++;
+//             console.log(countL);
+//         }
+//         displayNumberOfPressesLeft.innerHTML = countS;
+//         displayNumberOfPressesRight.innerHTML = countL; 
+        
+        
+//     })
+// } 
+
+//Set event listeners for button
+//If 'gameStarted' variable is false, the key press is not counted
+let gameStarted = false; 
+//When button gets clicked, 'gameStarted' becomes true, and key presses are being counted
+startButton.addEventListener('click', function() {
+    gameStarted = true; 
+    startGame();
+})
+
+//The 'gameStarted' variable will become false again after the game is finished
+startButton.addEventListener('click', function() {
+    setTimeout(() => {
+        gameStarted = false;
+    }, seconds);
+})
+
+// Get the number of key presses
+function startGame() {
     document.addEventListener('keydown', event => {
-        const key = event.key.toLocaleLowerCase();
-        if (key === 's') {
-            countS++;
-            console.log(countS);
-        } else if (key === 'l') {
-            countL++;
-            console.log(countL);
-        }
-    
-        displayNumberOfPressesLeft.innerHTML = countS;
-        displayNumberOfPressesRight.innerHTML = countL;    
+        let key = event.key.toLowerCase();
+        if (gameStarted === true) {
+            if (key === 's') {
+                countS++;
+                displayNumberOfPressesLeft.innerHTML = countS;
+            } else if (key === 'l') {
+                countL++;
+                displayNumberOfPressesRight.innerHTML = countL; 
+            }
+        } 
+        
+        let winner;
+        getMostCounts();
+        showTheWinner();  
     })
-} 
+}
+function getMostCounts() {
+    setTimeout(() => {
+        if (countS > countL) {
+            winner = 's'
+        } else if (countS < countL) {
+            winner = 'l'
+        } else {
+            winner = 'both'
+        }
+        return winner;
+    }, seconds);
+}
 
-// startButton.addEventListener('click', function() {
-//     let seconds = getSeconds() * 1000;
-//     let withInterval = setInterval(() => {
-//         seconds--;
-//        if (seconds >= 0) {
-//             gameStart();
-//        } 
-//        if (seconds === 0) {
-//            clearInterval;
-//        }
-//     }, seconds);
-//     setTimeout(() => {
-//        clearInterval(withInterval) 
-//     }, seconds);
-// }) 
-
-let gameEnabled;
-let seconds = getSeconds() * 1000;
-// startButton.addEventListener('click', function() {
-//     gameEnabled = true;
-//     function disable () {
-//         setTimeout(() => {
-//             gameEnabled = false;
-//         }, seconds);
-//     }
-//     disable();
-//     isEnabled();
+function showTheWinner () {
+    setTimeout(() => {
+        if (winner === 's') {
+            displayNumberOfPressesLeft.innerHTML = countS + '<br /> Congratulations <br /> You won!';
+        } else if (winner === 'l') {
+            displayNumberOfPressesRight.innerHTML = countL + '<br /> Congratulation <br /> You won!';
+        } else {
+            displayNumberOfPressesLeft.innerHTML = countS + '<br /> It\'s a draw!';
+            displayNumberOfPressesRight.innerHTML = countL + '<br /> It\'s a draw!';
+        }
+    }, seconds);
     
-// })
-
-
-// gameStart();
+}
 
 
 
@@ -76,7 +115,7 @@ let seconds = getSeconds() * 1000;
 let timer = document.querySelector('#time');
 startButton.addEventListener('click', (function() {
     let counter = getSeconds(); 
-    span = document.getElementById('count');
+    span = document.getElementById('countdown');
     setInterval(function() {
         counter--;
         if (counter >= 0) {
@@ -94,21 +133,5 @@ startButton.addEventListener('click', (function() {
     }, 1000);
 
 })) 
-
-// startButton.addEventListener('click', function() {
-//     const game = setInterval(() => {
-//         gameStart();
-//     }, seconds);
-//     clearInterval(game);
-// })
-// startButton.addEventListener('click', function() {
-//     setTimeout(() => {
-//         displayNumberOfPressesLeft.innerHTML = 'Your score is: ' + countS;
-//         displayNumberOfPressesRight.innerHTML = 'Your score is: ' + countL;
-//     }, seconds);
-// })
-
-
-// startButton
 
 
