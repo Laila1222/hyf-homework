@@ -1,4 +1,4 @@
-// 1. Log out the text Called after 2.5 seconds 2.5 seconds after the script is loaded.
+// 1. Text logged after 2.5 seconds
 
 // const logAfterSomeSeconds = setTimeout (logThisText, 2500);
 
@@ -6,9 +6,7 @@ function logThisText () {
   console.log ('Called after 2.5 seconds.');
 }
 
-//2. Create a function that takes 2 parameters: delay and stringToLog.
-// Calling this function should log out the stringToLog after delay seconds.
-// Call the function you have created with some different arguments.
+//2. Log string after some time
 
 function setTimeoutAndLog (stringToLog, delay) {
   setTimeout (function () {
@@ -20,9 +18,8 @@ function setTimeoutAndLog (stringToLog, delay) {
 // setTimeoutAndLog('Hahaha', 1500);
 // setTimeoutAndLog("Log this text here", 2000);
 
-// 3. Create a button in html.
-// When clicking this button, use the function you created in the previous task to log out the text:
-//  3.5 seconds after button is clicked 3.5 seconds after the button is clicked.
+// 3. When button is clicked, log after 3 seconds
+
 const button = document.querySelector ('button.clickBtn');
 console.log (button);
 const logThisString = '3 seconds after button is clicked';
@@ -32,10 +29,7 @@ button.addEventListener ('click', function () {
   setTimeoutAndLog (logThisString, threeSecondsDelay);
 });
 
-// 4. Create two functions and assign them to two different variables.
-// One function logs out Earth, the other function logs out Saturn. Now create a new third function that has one parameter:
-// planetLogFunction. The only thing the third function should do is call the provided parameter function.
-// Try call the third function once with the Earth function and once with the Saturn function.
+// 4. Log planets
 const logEarth = () => {
   console.log ('Earth');
 };
@@ -51,9 +45,7 @@ function logPlanets (planetLogFunction) {
 // logPlanets(logEarth);
 // logPlanets(logSaturn);
 
-// 5. Create a button with the text called "Log location".
-// When this button is clicked the location (latitude, longitude) of the user should be logged out using this browser api
-
+// 5. Log location
 const buttonLocation = document.querySelector ('button.locationBtn');
 
 function success (pos) {
@@ -112,10 +104,7 @@ buttonLocation.addEventListener ('click', function () {
 //         infoWindow.open(map);
 // }
 
-// 7. Create a function called runAfterDelay. It has two parameters: delay and callback. 
-// When called the function should wait delay seconds and then call the provided callback function. 
-// Try and call this function with different delays and different callback functions
-
+// 7. Delay and callback
 function runAfterDelay(delay, callback) {
     setTimeout(callback, delay)
 }
@@ -130,9 +119,7 @@ const logHobby = () => {
 // runAfterDelay(2000, logName);
 // runAfterDelay(5000, logHobby);
 
-//8. Check if we have double clicked on the page. A double click is defined by two clicks within 0.5 seconds. 
-// If a double click has been detected, log out the text: "double click!"
-
+//8.  Check if we have double clicked on the page. 
 let lastClick = 0;
 window.addEventListener('click', function() {
     const date = new Date();
@@ -143,11 +130,7 @@ window.addEventListener('click', function() {
     lastClick = time;
 })
 
-// 9.Create a function called jokeCreator that has three parameters: 
-// shouldTellFunnyJoke - boolean, logFunnyJoke - function and logBadJoke - function. 
-// If you set tellFunnyJoke to true it should call the logFunnyJoke function that should log out a funny joke. 
-// And vice versa.
-
+// 9. Joke generator
 function funnyJoke()  {
     console.log('My boyfriend said to me last night, “You treat our relationship like some kind of game!\' Which unfortunately cost him 12 points and a bonus chance.')
 }

@@ -43,7 +43,7 @@ window.getAvailableProducts = function() {
         return randomCountries;
     }
     
-    const numberOfAvailableProducts = getRandomInt(0, 30);
+    const numberOfAvailableProducts = getRandomInt(30, 100);
     const availableProducts = Array.apply(null, Array(numberOfAvailableProducts))
         .map(() => {
             const name = getRandomProductname();

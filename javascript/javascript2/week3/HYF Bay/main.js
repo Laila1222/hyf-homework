@@ -153,3 +153,29 @@ function filterProductsAfterPrice () {
   renderProducts (matchedProducts);
   rangeLabel.innerHTML = labelText;
 }
+
+// getAvailableProducts();
+// //Get prices of the products
+// const pricesOfProducts = getavaliableProducts().map((product) => {product.name});
+// console.log(pricesOfProducts);
+
+// // window.sendPricesToServer
+
+function sendPricesToServer(arrayOfPrice, response) {
+  const server = {
+    prices: () => {
+      return arrayOfPrice;
+    }
+  };
+  console.log(response(), server.prices());
+}
+
+// send price to server from client
+sendPricesToServer(
+  allProducts.map(item => {
+    return item.price;
+  }),
+  () => {
+    return "confirmation text";
+  }
+);

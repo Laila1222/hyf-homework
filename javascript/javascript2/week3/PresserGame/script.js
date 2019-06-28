@@ -1,16 +1,19 @@
 const startButton = document.querySelector('button');
 // startButton.addEventListener('click', function() {})
 const selectSeconds = document.querySelector('select');
-
-function getSeconds() {
-    const secondsValue = selectSeconds.value;
-    return secondsValue;
-}
-
-const gameShouldRunFor = selectSeconds.addEventListener('change', getSeconds);
+const seconds = selectSeconds.value;
+const mililSeconds = seconds * 1000;
+ 
+let playAgain;
 
 
-let seconds = getSeconds() * 1000;
+
+
+// console.log(gameShouldRunFor)
+// let seconds = getSeconds() * 1000;
+// console.log(seconds);
+
+
 
 
 // Count how many times have s and l been pressed. 
@@ -18,50 +21,39 @@ let displayNumberOfPressesLeft = document.querySelector('.counterLeft');
 let displayNumberOfPressesRight = document.querySelector('.counterRight');
 let countS = 0;
 let countL = 0;
-// startButton.addEventListener('click', gameStart);
-// startButton.addEventListener('click', removeGameStart);
 
-
-
-
-
-// function gameStart() {
-//     document.addEventListener('keydown', event => {
-//         let key = event.key.toLocaleLowerCase();
-        
-        
-//         if (key === 's') {
-//             countS++;
-//             console.log(countS);
-//         } else if (key === 'l') {
-//             countL++;
-//             console.log(countL);
-//         }
-//         displayNumberOfPressesLeft.innerHTML = countS;
-//         displayNumberOfPressesRight.innerHTML = countL; 
-        
-        
-//     })
-// } 
 
 //Set event listeners for button
 //If 'gameStarted' variable is false, the key press is not counted
 let gameStarted = false; 
 //When button gets clicked, 'gameStarted' becomes true, and key presses are being counted
 startButton.addEventListener('click', function() {
+    
+    const numberOfSeconds = selectSeconds.value;
+    const mililSeconds = numberOfSeconds * 1000;
+    
     gameStarted = true; 
     startGame();
+    startCountdown(numberOfSeconds)
+    stopCountingKeyPres(mililSeconds);
+    
 })
 
 //The 'gameStarted' variable will become false again after the game is finished
-startButton.addEventListener('click', function() {
+
+
+function stopCountingKeyPres (delayTime){
     setTimeout(() => {
         gameStarted = false;
-    }, seconds);
-})
+    }, delayTime);
+}
 
 // Get the number of key presses
 function startGame() {
+    let winner;
+    const numberOfSeconds = selectSeconds.value;
+    const mililSeconds = numberOfSeconds * 1000;
+    startAnimation();
     document.addEventListener('keydown', event => {
         let key = event.key.toLowerCase();
         if (gameStarted === true) {
@@ -74,47 +66,17 @@ function startGame() {
             }
         } 
         
-        let winner;
-        getMostCounts();
-        showTheWinner();  
+        replay(mililSeconds);
+        
+        getMostCounts(mililSeconds);
+        showTheWinner(mililSeconds);
+        
+        
     })
 }
-function getMostCounts() {
-    setTimeout(() => {
-        if (countS > countL) {
-            winner = 's'
-        } else if (countS < countL) {
-            winner = 'l'
-        } else {
-            winner = 'both'
-        }
-        return winner;
-    }, seconds);
-}
 
-function showTheWinner () {
-    setTimeout(() => {
-        if (winner === 's') {
-            displayNumberOfPressesLeft.innerHTML = countS + '<br /> Congratulations <br /> You won!';
-        } else if (winner === 'l') {
-            displayNumberOfPressesRight.innerHTML = countL + '<br /> Congratulation <br /> You won!';
-        } else {
-            displayNumberOfPressesLeft.innerHTML = countS + '<br /> It\'s a draw!';
-            displayNumberOfPressesRight.innerHTML = countL + '<br /> It\'s a draw!';
-        }
-    }, seconds);
-    
-}
-
-
-
-
-
-
-// countdown timer
-let timer = document.querySelector('#time');
-startButton.addEventListener('click', (function() {
-    let counter = getSeconds(); 
+function startCountdown (seconds) {
+    let counter = seconds; 
     span = document.getElementById('countdown');
     setInterval(function() {
         counter--;
@@ -132,6 +94,92 @@ startButton.addEventListener('click', (function() {
 
     }, 1000);
 
-})) 
+}
+
+
+//Get who go the highest count
+function getMostCounts(delayTime) {
+   
+    setTimeout(() => {
+        if (countS > countL) {
+            winner = 's'
+        } else if (countS < countL) {
+            winner = 'l'
+        } else {
+            winner = 'both'
+        }
+        return winner;
+    }, delayTime);
+}
+
+
+//Show the winner
+function showTheWinner (delayTime) {
+    
+    setTimeout(() => {
+        if (winner === 's') {
+            displayNumberOfPressesLeft.innerHTML = countS + '<br /> Congratulations <br /> You won!';
+            displayNumberOfPressesLeft.style.color = "#ff80b3"
+        } else if (winner === 'l') {
+            displayNumberOfPressesRight.innerHTML = countL + '<br /> Congratulation <br /> You won!';
+            displayNumberOfPressesRight.style.color = "#ff80b3"
+        } else {
+            displayNumberOfPressesLeft.innerHTML = countS + '<br /> It\'s a draw!';
+            displayNumberOfPressesRight.innerHTML = countL + '<br /> It\'s a draw!';
+        }
+    }, delayTime);
+}
+
+
+//Change button sign
+function replay(delayTime) {
+    
+    setTimeout(() => {
+        startButton.innerHTML = 'Play again!';
+    }, delayTime);
+}
+
+//Remove button 
+
+
+
+
+
+// countdown timer
+let timer = document.querySelector('#time');
+// startButton.addEventListener('click', (function() {
+    
+    
+//     let counter = seconds; 
+//     span = document.getElementById('countdown');
+//     setInterval(function() {
+//         counter--;
+//         if (counter >= 0) {
+            
+//             span.innerHTML = counter + ' seconds left';
+            
+//         }
+//         if (counter === 0) {
+//             span.innerHTML = 'Time is over';
+//             clearInterval(counter);
+        
+//         }
+        
+
+//     }, 1000);
+
+// })) 
+
+//Animation
+const pressKeySignLeft = document.querySelector('h2.pressS');
+const pressKeySignRight = document.querySelector('h2.pressL');
+
+pressKeySignLeft.style.webkitAnimationPlayState = "paused";
+pressKeySignRight.style.webkitAnimationPlayState = "paused";
+
+function startAnimation() {
+    pressKeySignLeft.style.webkitAnimationPlayState = "running";
+    pressKeySignRight.style.webkitAnimationPlayState = "running";
+}
 
 
