@@ -172,3 +172,6 @@ sendPricesToServer (
     return 'Prices are received';
   }
 );
+
+
+
