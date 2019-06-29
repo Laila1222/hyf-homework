@@ -154,28 +154,21 @@ function filterProductsAfterPrice () {
   rangeLabel.innerHTML = labelText;
 }
 
-// getAvailableProducts();
-// //Get prices of the products
-// const pricesOfProducts = getavaliableProducts().map((product) => {product.name});
-// console.log(pricesOfProducts);
+//Send prices to server
 
-// // window.sendPricesToServer
-
-function sendPricesToServer(arrayOfPrice, response) {
+function sendPricesToServer (arrayOfPrice, response) {
   const server = {
     prices: () => {
       return arrayOfPrice;
-    }
+    },
   };
-  console.log(response(), server.prices());
+  console.log (response (), server.prices ());
 }
-
-// send price to server from client
-sendPricesToServer(
-  allProducts.map(item => {
-    return item.price;
+sendPricesToServer (
+  allProducts.map (product => {
+    return product.price;
   }),
   () => {
-    return "confirmation text";
+    return 'Prices are received';
   }
 );
