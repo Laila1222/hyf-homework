@@ -153,3 +153,6 @@ function filterProductsAfterPrice () {
   renderProducts (matchedProducts);
   rangeLabel.innerHTML = labelText;
 }
+
+const pricesArray = allProducts.filter(product => product.price);
+console.log(pricesArray);
