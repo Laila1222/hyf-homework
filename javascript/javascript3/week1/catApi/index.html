@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="location">
+        
+            <label for="location">Location:</label>
+            <input id="location-name" name="location" type="text" required>
+            <span id="errorMessage"></span>
+            <button>Get temperature</button>
+            <button id="current-location">Use my current location</button>
+            
+       
+            
+    </div>
+    <section id="show-weather">
+        <div class="weather-main">
+            <h2 id="city-name"></h2>
+            <p id="temperature"></p>
+            <p id="clouds"></p>
+            <p id="humidity"></p>
+            <p id="min-temp"></p>
+            <p id="max-temp"></p>
+            <p id="sunrise"></p>
+            <p id="sunset"></p>
+            <p id="wind-speed"></p>
+        </div>
+        
+    </section>
+    <div id="map"></div>
+
+        
+    
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuZiptyl63Ijn3ZH4akMjXAqxZYk2eT1E&callback">
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
