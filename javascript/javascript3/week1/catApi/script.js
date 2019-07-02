@@ -8,20 +8,40 @@ const button = document.querySelector('button');
 // const temperature = document.querySelector('#temperature');
 const humidity = document.querySelector('#humidity');
 const errorMessage = document.querySelector('#errorMessage');
+const currentLocationButton = document.querySelector('#current-location');
 
+//Event listeners
+//Get weather data by input
+button.addEventListener('click', function() {
+    const location = inputField.value.toLowerCase();
+    const url = 'https://api.openweathermap.org/data/2.5/weather?q=' + location + '&units=metric&appid=8520585c9e303dd1aa21a11aaebf99d6';
+    getWeatherData(url);
+});
 
+//Get weather data using user's location
+currentLocationButton.addEventListener('click', function () {
+    navigator.geolocation.getCurrentPosition(function (position) {
+        const currentLocation = {
+            longitude: position.coords.longitude,
+            latitude: position.coords.latitude
+        };
+        const url = `https://api.openweathermap.org/data/2.5/weather?lat=${currentLocation.latitude}&lon=${currentLocation.longitude}&units=metric&appid=8520585c9e303dd1aa21a11aaebf99d6`;
+        getWeatherData(url);
+    })
+})
+
+//Functions
+//Check if fetch works
 const checkFetch = function (response) {
     if (!response.ok) {  
         console.log(response.statusText + ' - ' + response.url);
-        // return response.message;
     }
     return response.json();
 }
 
-
-button.addEventListener('click', function() {
-    const location = inputField.value.toLowerCase();
-    fetch('https://api.openweathermap.org/data/2.5/weather?q=' + location + '&units=metric&appid=8520585c9e303dd1aa21a11aaebf99d6')
+//Get weather data
+function getWeatherData(url) {
+    fetch(url)
         .then(checkFetch)
         .then(json => {
            if (!json.message) {
@@ -62,10 +82,8 @@ button.addEventListener('click', function() {
             console.log('error');
             console.log(err);
         })
-    
-    
+}
 
-});
 //Convert Unix timestamp into hour and minute
 function convertUnixTime () {
     const date = new Date
@@ -86,7 +104,5 @@ function initMap(coordLat, coordLng) {
     const marker = new google.map.Marker({position: location, map: map});
     marker.setMap(map);
   }
-
-
 
 
