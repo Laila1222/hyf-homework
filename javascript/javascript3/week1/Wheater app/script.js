@@ -14,8 +14,12 @@ const currentLocationButton = document.querySelector('#current-location');
 //Get weather data by input
 button.addEventListener('click', function() {
     const location = inputField.value.toLowerCase();
-    const url = 'https://api.openweathermap.org/data/2.5/weather?q=' + location + '&units=metric&appid=8520585c9e303dd1aa21a11aaebf99d6';
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=8520585c9e303dd1aa21a11aaebf99d6`;
     getWeatherData(url);
+    const savedData = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=8520585c9e303dd1aa21a11aaebf99d6`;
+    localStorage.setItem('location', JSON.stringify(savedData));
+    const data = JSON.parse(localStorage.getItem('location'));
+    console.log(data);
 });
 
 //Get weather data using user's location
@@ -27,6 +31,10 @@ currentLocationButton.addEventListener('click', function () {
         };
         const url = `https://api.openweathermap.org/data/2.5/weather?lat=${currentLocation.latitude}&lon=${currentLocation.longitude}&units=metric&appid=8520585c9e303dd1aa21a11aaebf99d6`;
         getWeatherData(url);
+        const savedData = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=8520585c9e303dd1aa21a11aaebf99d6`;
+        localStorage.setItem('location', JSON.stringify(savedData));
+        const data = JSON.parse(localStorage.getItem('location'));
+        console.log(data);
     })
 })
 
@@ -46,7 +54,7 @@ function getWeatherData(url) {
         .then(json => {
            if (!json.message) {
             document.querySelector('#city-name').innerHTML = `Location: ${json.name}`;
-            document.querySelector('#temperature').innerHTML = 'Temperature: ' + json.main.temp + '°C';
+            document.querySelector('#temperature').innerHTML = `Temperature: ${json.main.temp}°C`;
             document.querySelector('#humidity').innerHTML = `Humidity: ${json.main.humidity} hPa.`;
             document.querySelector('#min-temp').innerHTML = `Minimum-temperature: ${json.main.temp_min} °C.`;
             document.querySelector('#max-temp').innerHTML = `Maximum-temperature: ${json.main.temp_max} °C.`;
@@ -100,9 +108,8 @@ function initMap(coordLat, coordLng) {
       center: location
     });
     console.log(location)
-    //Marker is positioned at the location
-    const marker = new google.map.Marker({position: location, map: map});
-    marker.setMap(map);
+    
   }
 
+//Save location
 
