@@ -1,18 +1,18 @@
 //variables
-const searchInput = document.querySelector('#search').value;
+
 const button = document.querySelector('button');
-const image = document.querySelector('img');
 
-// button.addEventListener('click', () => {
-//     fetch("http://api.giphy.com/v1/gifs/search?q=ryan+gosling&api_key=nC9H30grHHmtXeadDvKzPAOu6sFDPfSH&limit=5")
-//     .then(response => response.json())
-//     .then(json => {
-//         console.log(json);
-//         image.src = json.data[0].url;
-//     }
+
+button.addEventListener('click', () => {
+    fetch('https://api.thecatapi.com/v1/images/search')
+    .then(response => response.json())
+    .then(json => {
+        console.log(json);
+        const picture = json[0].url;
+        const imgInHtml = '<img src="' + picture + '">';
+        document.getElementById('image').innerHTML = imgInHtml;
         
-// )
+    })
+        
+});
 
-function createNode (element) {
-    return document.createElement(element);
-}
