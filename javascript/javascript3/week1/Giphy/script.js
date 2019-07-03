@@ -1,3 +1,4 @@
+//Variables
 const button = document.querySelector ('button');
 const input = document.getElementById ('searchWord');
 const select = document.querySelector ('select');
@@ -12,11 +13,19 @@ button.addEventListener ('click', function () {
       searchTerm +
       '&api_key=nC9H30grHHmtXeadDvKzPAOu6sFDPfSH'
   )
-    .then (response => response.json ())
+    .then(checkFetch)
     .then (json => {
       getGiphy (json, index);
     });
 });
+
+//Check if fetch works
+const checkFetch = function (response) {
+    if (!response.ok) {  
+        console.log(response.statusText + ' - ' + response.url);
+    }
+    return response.json();
+}
 
 //Convert input string, so it can be inserted into the url
 function stringToArray (str) {
