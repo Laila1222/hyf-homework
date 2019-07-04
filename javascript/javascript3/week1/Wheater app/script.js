@@ -7,6 +7,7 @@ const currentLocationButton = document.querySelector ('#current-location');
 const background = document.querySelector ('body');
 const weatherInfoBackground = document.querySelector ('section');
 const weatherInfoContainer = document.querySelector ('.weather-main');
+let data;
 
 // Get weather info by pressing 'enter'
 inputField.addEventListener ('keyup', function (event) {
@@ -23,8 +24,8 @@ function locationButtonOnClick () {
   getWeatherData (url);
   const savedData = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=8520585c9e303dd1aa21a11aaebf99d6`;
   localStorage.setItem ('location', JSON.stringify (savedData));
-  const data = JSON.parse (localStorage.getItem ('location'));
-  console.log (data);
+  data = JSON.parse (localStorage.getItem ('location'));
+  return data;
 }
 
 //Get weather data using user's location
@@ -177,3 +178,5 @@ function addStyling () {
     'inset 0 0 10px 5px rgb(34, 34, 34, .98)';
   weatherInfoBackground.style.borderRadius = '10px';
 }
+
+// make an if statement that if local storage has a value then load from there, otherwise load the default.

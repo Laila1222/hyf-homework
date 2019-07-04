@@ -1,23 +1,41 @@
+
 //Variables
 const button = document.querySelector ('button');
 const input = document.getElementById ('searchWord');
 const select = document.querySelector ('select');
 const ul = document.querySelector ('ul');
 
+
+
+function cleanItems(item) {
+  while(item.firstChild) {
+    item.removeChild(item.firstChild);
+  }
+}
+
+
 //Event listener
 button.addEventListener ('click', function () {
+  
   const searchTerm = stringToArray (input.value);
   const index = select.value;
-  fetch (
-    'https://api.giphy.com/v1/gifs/search?q=' +
-      searchTerm +
-      '&api_key=nC9H30grHHmtXeadDvKzPAOu6sFDPfSH'
-  )
-    .then(checkFetch)
-    .then (json => {
-      getGiphy (json, index);
-    });
+  cleanItems(ul);
+  loadGifs(index, searchTerm);
+  
+  
 });
+function createLi() {
+  const li = document.createElement ('li');
+}
+function removeGif() {
+  if (!li) {
+    console.log('nothing to remove');
+    
+  } else {
+    li.remove();
+  }
+
+}
 
 //Check if fetch works
 const checkFetch = function (response) {
@@ -34,12 +52,20 @@ function stringToArray (str) {
   return stringDevidedByPlus;
 }
 
-//Create li, and insert the giphy image
-function getGiphy (data, index) {
-  for (let i = 0; i < index; i++) {
-    const imgUrl = data.data[i].images.original.url;
-    const li = document.createElement ('li');
-    ul.appendChild (li);
-    li.innerHTML = '<img src="' + imgUrl + '">';
-  }
+
+function loadGifs (index, searchTerm) {
+  fetch (
+    'https://api.giphy.com/v1/gifs/search?q=' +
+      searchTerm +
+      '&api_key=nC9H30grHHmtXeadDvKzPAOu6sFDPfSH'
+  )
+    .then(checkFetch)
+    .then(json => {
+      for (let i = 0; i < index; i++) {
+        const imgUrl = json.data[i].images.original.url;
+        const li = document.createElement ('li');
+        ul.appendChild (li);
+        li.innerHTML = '<img src="' + imgUrl + '">';
+      }
+    })
 }
