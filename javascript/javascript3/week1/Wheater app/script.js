@@ -7,24 +7,25 @@ const inputField = document.querySelector('#input-location');
 const button = document.querySelector('#input-location-button');
 // const temperature = document.querySelector('#temperature');
 const humidity = document.querySelector('#humidity');
-const errorMessage = document.querySelector('#errorMessage');
+const errorMessage = document.querySelector('#error-message');
 const currentLocationButton = document.querySelector('#current-location');
 const background = document.querySelector('body');
+const weatherInfoBackground = document.querySelector('section');
+const weatherInfoContainer = document.querySelector('.weather-main');
 
 //Event listeners
 //Get weather data by input
-button.addEventListener('click', function() {
-    const location = inputField.value.toLowerCase();
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=8520585c9e303dd1aa21a11aaebf99d6`;
-    getWeatherData(url);
-    const savedData = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=8520585c9e303dd1aa21a11aaebf99d6`;
-    localStorage.setItem('location', JSON.stringify(savedData));
-    const data = JSON.parse(localStorage.getItem('location'));
-    console.log(data);
-});
-
+function locationButtonOnClick () {
+        const location = inputField.value.toLowerCase();
+        const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=8520585c9e303dd1aa21a11aaebf99d6`;
+        getWeatherData(url);
+        const savedData = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=8520585c9e303dd1aa21a11aaebf99d6`;
+        localStorage.setItem('location', JSON.stringify(savedData));
+        const data = JSON.parse(localStorage.getItem('location'));
+        console.log(data);
+} 
 //Get weather data using user's location
-currentLocationButton.addEventListener('click', function () {
+function currentLocationButtonOnClick() {
     navigator.geolocation.getCurrentPosition(function (position) {
         const currentLocation = {
             longitude: position.coords.longitude,
@@ -37,7 +38,15 @@ currentLocationButton.addEventListener('click', function () {
         const data = JSON.parse(localStorage.getItem('location'));
         console.log(data);
     })
+}
+
+inputField.addEventListener('keyup', function(event) {
+    if (event.keyCode === 13) {
+        locationButtonOnClick();
+    }
 })
+
+
 
 //Functions
 //Check if fetch works
@@ -54,6 +63,7 @@ function getWeatherData(url) {
         .then(checkFetch)
         .then(json => {
            if (!json.message) {
+               console.log(json.weather[0].id);
             document.querySelector('#city-name').innerHTML = `Location: ${json.name}`;
             document.querySelector('h3').innerHTML = json.weather[0].description;
             document.querySelector('#temperature').innerHTML = `Temperature: ${json.main.temp}°C`;
@@ -121,21 +131,44 @@ function initMap(coordLat, coordLng) {
 //wheater conditions
 function getWeatherCondition (weatherCondition) {
     if (weatherCondition <= 232 && weatherCondition >= 200) {
-
-        background.style.backgroundImage = 'url(images/storm.jpg)'
+        background.style.backgroundImage = 'url(images/storm.jpg)';
+        weatherInfoBackground.style.background = 'url(images/stormyBack.png)';
+        addStyling();
     } else if (weatherCondition <= 321 && weatherCondition >= 300) {
-        background.style.backgroundImage = 'url(images/drizzle.jpg)'
+        background.style.backgroundImage = 'url(images/drizzle.jpg)';
+        weatherInfoBackground.style.background = 'url(images/stormyBack.png)';
+        addStyling();
     } else if (weatherCondition <= 531 && weatherCondition >= 500){
-        background.style.backgroundImage = 'url(images/rainy.jpg)' 
+        background.style.backgroundImage = 'url(images/rainy.jpg)';
+        weatherInfoBackground.style.background = 'url("images/rainyBack.png")'; 
+        addStyling();
     } else if (weatherCondition <= 622 && weatherCondition >= 600) {
-        background.style.backgroundImage = 'url(images/snow.jpg)'
+        background.style.backgroundImage = 'url(images/snow.jpg)';
+        weatherInfoBackground.style.background = 'url(images/snowyBack.png)';
+        addStyling();
     }else if (weatherCondition <= 781 && weatherCondition >= 701) {
-        background.style.backgroundImage = 'url(images/mist.jpg)'
-    }else if (weatherCondition = 800) {
-        background.style.backgroundImage = 'url(images/sunny.jpg)'
-    }else if (weatherCondition <= 804 && weatherCondition >= 800) {
-        background.style.backgroundImage = 'url(images/cloudandsun.jpg)'
-    } else {
-        background.style.backgroundImage = 'url(images/error.jpg)'
+        background.style.backgroundImage = 'url(images/mist.jpg)';
+        weatherInfoBackground.style.background = 'url(images/mistyBack.png)';
+        addStyling();
+    }else if (weatherCondition > 800 && weatherCondition <= 804) {
+        background.style.backgroundImage = 'url(images/cloudy.jpg)';
+        weatherInfoBackground.style.background = 'url(images/mistyBack.png)';
+        addStyling();
+    }    else if (weatherCondition = 800) {
+            background.style.backgroundImage = 'url(images/sunny.jpg)';
+            weatherInfoBackground.style.background = 'url(images/sunnyBack.png)';
+            addStyling();
+    }   else {
+        background.style.backgroundImage = 'url(images/error.jpg)';
+        weatherInfoBackground.style.background = 'url(images/sunnyBack.png)';
+        addStyling();
     }
 }
+
+function addStyling () {
+    weatherInfoContainer.style.padding = '2rem 2rem 0 2rem';
+    weatherInfoContainer.style.marginTop = '1rem';
+    weatherInfoBackground.style.boxShadow = 'inset 0 0 10px 5px rgb(34, 34, 34, .98)';
+    weatherInfoBackground.style.borderRadius = '10px';
+}
+
