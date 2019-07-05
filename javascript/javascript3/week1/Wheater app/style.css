@@ -104,7 +104,9 @@ button:active {
 /* Weather info */
 .weather-main {
   color: black;
+  /* position: relative; */
 }
+
 
 .weather-main p,
 h3 {
