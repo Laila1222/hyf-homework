@@ -8,13 +8,27 @@ const background = document.querySelector ('body');
 const weatherInfoBackground = document.querySelector ('section');
 const weatherInfoContainer = document.querySelector ('.weather-main');
 let data;
+let saveInLocalStorageLat;
+  let saveInLocalStorageLng;
 
-// Get weather info by pressing 'enter'
+  // Get weather info by pressing 'enter'
 inputField.addEventListener ('keyup', function (event) {
   if (event.keyCode === 13) {
     locationButtonOnClick ();
   }
 });
+
+//If local storage has coordinates: load weather info regarding that location
+if (localStorage.getItem('loc')) {
+  const loc = JSON.parse(localStorage.getItem('loc'));
+  const url = `https://api.openweathermap.org/data/2.5/weather?lat=${loc.lat}&lon=${loc.long}&units=metric&appid=8520585c9e303dd1aa21a11aaebf99d6`;
+  getWeatherData(url);
+} else {
+  console.log('nothing in storage');
+}
+
+
+
 
 // Functions
 //Get weather data by input
@@ -30,24 +44,34 @@ function locationButtonOnClick () {
 
 //Get weather data using user's location
 function currentLocationButtonOnClick () {
-  navigator.geolocation.getCurrentPosition (function (position) {
-    const currentLocation = {
-      longitude: position.coords.longitude,
-      latitude: position.coords.latitude,
-    };
-    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${currentLocation.latitude}&lon=${currentLocation.longitude}&units=metric&appid=8520585c9e303dd1aa21a11aaebf99d6`;
-    getWeatherData (url);
-    const savedData = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=8520585c9e303dd1aa21a11aaebf99d6`;
-    localStorage.setItem ('location', JSON.stringify (savedData));
-    const data = JSON.parse (localStorage.getItem ('location'));
-    console.log (data);
-  });
+  getLocation();
 }
+
+//get location
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.watchPosition(showPosition);
+  } else {
+    console.log("geolocation is not supported by your browser.");
+  }
+}
+
+function showPosition(position) {
+    localStorage.setItem('loc', JSON.stringify({
+        'lat': position.coords.latitude,
+        'long': position.coords.longitude
+    }))
+ const url = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=metric&appid=8520585c9e303dd1aa21a11aaebf99d6`;
+ getWeatherData(url);
+}
+
+
 
 //Get weather data
 function getWeatherData (url) {
   fetch (url)
-    .then (checkFetch)
+    // .then (checkFetch)
+    .then (response => response.json())
     .then (json => {
       if (!json.message) {
         console.log (json.weather[0].id);
@@ -60,7 +84,7 @@ function getWeatherData (url) {
         ).innerHTML = `Temperature: ${json.main.temp}°C`;
         document.querySelector (
           '#humidity'
-        ).innerHTML = `Humidity: ${json.main.humidity} hPa.`;
+        ).innerHTML = `Humidity: ${json.main.humidity}.`;
         document.querySelector (
           '#min-temp'
         ).innerHTML = `Minimum-temperature: ${json.main.temp_min} °C.`;
@@ -107,12 +131,12 @@ function getWeatherData (url) {
 }
 
 //Check if fetch works
-const checkFetch = function (response) {
-  if (!response.ok) {
-    console.log (response.statusText + ' - ' + response.url);
-  }
-  return response.json ();
-};
+// const checkFetch = function (response) {
+//   if (!response.ok) {
+//     console.log (response.statusText + ' - ' + response.url);
+//   }
+//   return response.json ();
+// };
 
 //Convert Unix timestamp into hour and minute
 function convertUnixTime () {
