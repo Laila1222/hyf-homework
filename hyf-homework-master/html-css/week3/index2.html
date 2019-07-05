@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <title>Homework 3 page2</title>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="container header-container">
+            <div class="header-wrap">
+                <!-- LOGO -->
+                <div class="logo-container">                    
+                    <h2 class="logo-text">TravelGoat</h2>
+                    <img src="logo.png" alt="logo">
+                </div>
+                <!-- Navigation -->
+                <nav>
+                    <ul>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Products</a></li>
+                        <li><a href="#" class="active">Sign up</a></li>
+                        <li><a href="#">Contact</a></li> 
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <!-- header photo -->
+    <section class="header-photo">
+            <h6 class=header-photo-heading>Learn more</h6>
+            <img src="header-photo2.jpg" alt="header-photo">
+    </section>
+    <!-- Main -->
+    <main>
+        <div class="container">
+            <!-- FORM  -->
+            <form action="index3.html" method="get">
+                <!-- Form headline -->
+                <div class="form-divs">
+                    <h2>Sign up to travelgoat.com</h2>
+                    <h2 class="form-headline">Step 2/4 - How can we reach you?</h2>
+                </div>
+                <!-- Progress Bar -->
+                <div class="form-divs">
+                    <progress value="50" max="100"></progress>
+                    <div pseudo="-webkit-progress-inner-element">
+                        <div pseudo="-webkit-progress-bar">
+                            <div pseudo="-webkit-progress-value"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-divs">
+                    <p class="form-greeting">We will probably need to stay in touch somehow. Let us know how we can reach you</p>
+                </div>
+                <!-- Email and phone-->
+                <div>
+                    <!-- Email -->
+                    <div class="form-divs">
+                        <input 
+                            type="text" 
+                            name="email" 
+                            id="email"
+                            placeholder="E-mail address*"
+                            pattern="^([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22))*\x40([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d))*$"
+                            required
+                            >
+                    </div>
+                    <!-- Phone -->
+                    <div class="form-divs">
+                        <input 
+                            type="tel"
+                            id="phone"
+                            name="phone"
+                            placeholder="Phone number">
+                    </div>
+                </div>
+                <!-- PASSWORD -->
+                <div class="form-divs">                
+                    <input 
+                        type="password"
+                        id="password"
+                        name="password"
+                        pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
+                        minlength="8"
+                        title="Please include at least 1 uppercase character, 1 lowercase character, and 1 number, and it should include at least 8 characters."
+                        required
+                        placeholder="Password*"
+                        >
+                </div>
+                <!-- REPEAT PASSWORD-->
+                <div class="form-divs">
+                    <input 
+                        type="password"
+                        id="password-repeat"
+                        name="password-repeat"
+                        pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
+                        minlength="8"
+                        title="Please include at least 1 uppercase character, 1 lowercase character, and 1 number, and it should include at least 8 characters."
+                        required
+                        placeholder="Repeat password*"
+                        >
+                </div>
+                <!-- NEWSLETTER -->
+                <p class="form-divs">I want to sign up for the newsletter</p>
+                <div id="newsletter-buttons" class="form-divs">
+                    <!-- weekly radio button-->
+                    <div class="newsletter-radio-button">                        
+                        <input 
+                            type="radio" 
+                            name="newsletter"
+                            value="weekly"
+                            id="newsletter1"
+                            checked
+                            required>
+                        <label for="newsletter1">
+                                Weekly news
+                        </label>
+                    </div>                 
+                    <!-- Monthly radio button-->
+                    <div class="newsletter-radio-button">                          
+                        <input 
+                            type="radio"
+                            name="newsletter"
+                            id="newsletter2"
+                            value="monthly">
+                        <label for="newsletter2">
+                                Monthly news
+                        </label>
+                    </div>                        
+                    <!-- never radio button-->
+                    <div class="newsletter-radio-button">
+                        <input 
+                            type="radio"
+                            name="newsletter"
+                            id="newsletter3"
+                            value="never">
+                        <label for="newsletter3">
+                                Don't send me news
+                        </label> 
+                    </div>                
+                </div>
+                <!-- NEXT STEP / SUBMIT BUTTON -->
+                <div class="submit-button">
+                    <input type="submit" value="Next step" id="submit">
+                </div> 
+            </form>
+        </div>
+    </main>
+</body>
+</html>
