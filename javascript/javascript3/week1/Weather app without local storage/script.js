@@ -78,6 +78,7 @@ function getWeatherData (url) {
           '#sunset'
         ).innerHTML = `Sunset: ${convertUnixTime (json.sys.sunset)} pm`;
 
+        //Convert Unix timestamp into hour and minute
         function convertUnixTime (unix) {
           const date = new Date (unix * 1000);
           const hours = date.getHours ();
@@ -112,10 +113,6 @@ const checkFetch = function (response) {
   return response.json ();
 };
 
-//Convert Unix timestamp into hour and minute
-function convertUnixTime () {
-  const date = new Date ();
-}
 
 //Load location on  map
 function initMap (coordLat, coordLng) {
