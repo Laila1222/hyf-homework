@@ -87,10 +87,13 @@ function getWeatherData (url) {
           return displayTime;
         }
 
+        // Load map
         initMap (json.coord.lat, json.coord.lon);
 
+        // Display different background image according to weather
         const weatherCode = json.weather[0].id;
         getWeatherCondition (weatherCode);
+
       } else {
         errorMessage.innerHTML = json.message;
         errorMessage.style.display = 'inline-block';
@@ -112,7 +115,6 @@ const checkFetch = function (response) {
   }
   return response.json ();
 };
-
 
 //Load location on  map
 function initMap (coordLat, coordLng) {
