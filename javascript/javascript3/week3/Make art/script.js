@@ -49,16 +49,6 @@ function drawRandomCircles () {
       const minRad = 1;
       const maxRad = 100;
       const randRad = Math.floor (Math.random () * (maxRad - minRad)) + minRad;
-      //Random start and end angle
-      const minStartAngle = 1;
-      const maxStartAngle = 180;
-      const minEndAngle = 181;
-      const maxEndAngle = 360;
-      const randStartAngle =
-        Math.floor (Math.random () * (maxStartAngle - minStartAngle)) +
-        minStartAngle;
-      const randEndAngle =
-        Math.floor (Math.random () * (maxEndAngle - minEndAngle)) + minEndAngle;
       //Random colour
       function getRandomColor () {
         return (
@@ -71,8 +61,8 @@ function drawRandomCircles () {
         randomCoordinateX,
         randomCoordinateY,
         randRad,
-        randStartAngle,
-        randEndAngle,
+        0,
+        360,
         getRandomColor ()
       );
     }
