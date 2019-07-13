@@ -1,5 +1,6 @@
 //Variables
 const canvas = document.querySelector ('canvas');
+const context = canvas.getContext ('2d');
 
 //Circle
 class Circle {
@@ -13,8 +14,6 @@ class Circle {
   }
 
   draw () {
-    const context = canvas.getContext ('2d');
-
     context.beginPath ();
     context.arc (
       this.x,
@@ -26,11 +25,12 @@ class Circle {
     context.fillStyle = this.fillColor;
     context.fill ();
   }
+
 }
 
 const firstCircle = new Circle (200, 200, 50, 45, 180, 'green');
-console.log (firstCircle);
 firstCircle.draw ();
+
 
 const secondCircle = new Circle (100, 100, 20, 0, 360, 'yellow');
 secondCircle.draw ();
@@ -72,4 +72,44 @@ function drawRandomCircles () {
   }, 500);
 }
 
-drawRandomCircles ();
+// drawRandomCircles ();
+
+
+// Circle follows the cursor
+//Get Mouse Position
+const canvasPos = getPosition (canvas);
+let mouseX = 0;
+let mouseY = 0;
+
+canvas.addEventListener ('mousemove', setMousePosition, false);
+
+function setMousePosition (e) {
+  mouseX = e.clientX - canvasPos.x;
+  mouseY = e.clientY - canvasPos.y;
+}
+
+function update () {
+  context.clearRect (0, 0, canvas.width, canvas.height);
+  const cursorCircle = new Circle (mouseX, mouseY, 10, 0, 360, 'blue');
+  cursorCircle.draw ();
+
+  requestAnimationFrame (update);
+}
+
+function getPosition (el) {
+  let xPosition = 0;
+  let yPosition = 0;
+
+  while (el) {
+    xPosition += el.offsetLeft - el.scrollLeft + el.clientLeft;
+    yPosition += el.offsetTop - el.scrollTop + el.clientTop;
+    el = el.offsetParent;
+  }
+
+  return {
+    x: xPosition,
+    y: yPosition,
+  };
+}
+
+update ();
