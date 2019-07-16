@@ -72,7 +72,7 @@ function drawRandomCircles () {
   }, 500);
 }
 
-// drawRandomCircles ();
+drawRandomCircles ();
 
 
 // Circle follows the cursor
@@ -112,4 +112,4 @@ function getPosition (el) {
   };
 }
 
-update ();
+// update ();
