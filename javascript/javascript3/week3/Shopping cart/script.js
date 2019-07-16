@@ -12,11 +12,7 @@ const lookAtShoppingCartButton = document.querySelector('.get-shoppingcart');
 const errorMessage = document.querySelector('.not-found-span');
 console.log(errorMessage);
 const searchInput = document.querySelector('input');
-
-// console.log(shoppingCartModal);
-
-// console.log(closeButton2)
-
+const addToCartButtonInProductInfo = document.querySelector('#add-to-cart-in-product-info');
 
 class Product {
     constructor(name, price, description) {
@@ -24,7 +20,6 @@ class Product {
         this.price = price;
         this.description = description;
     }
-
 }
 
 class ShoppingCart {
@@ -40,12 +35,14 @@ class ShoppingCart {
         console.log(this.products)
     }
 
-    removeProduct(product) {
-        for (let i = 0; i < this.products.length; i++) {
+    removeProduct(product, element) {
+        for (let i = 0; i < array.products.length; i++) {
             if (this.products[i] === product) {
                 this.products.splice(i, 1);
             }
         }
+        element.parentNode.removeChild(element);
+        console.log(this.products);
     }
 
     searchProduct(productName) {
@@ -66,22 +63,32 @@ class ShoppingCart {
     }
 
     renderProducts(element) {
-        //create Li
-        const ul = document.querySelector('ul');
-        const totalAmount = this.getTotal();
-        
-        
-       
-        for (let i = 0; i < this.products.length; i++) {
-            const li = document.createElement('li');
-            element.appendChild(li);
-            li.innerHTML = this.products[i].name + ': ' + this.products[i].price + ' Dkk';
-        }
-        const totalLi = document.createElement('li');
-        element.appendChild(totalLi);
-        totalLi.innerHTML = 'Total amount: ' + totalAmount;
 
-        
+        for (let i = 0; i < this.products.length; i++) {
+            
+            const li = document.createElement('li');
+            const removeProductButton = document.createElement('button'); 
+            removeProductButton.innerHTML = 'Remove item';
+            element.appendChild(li);
+            // console.log(this.products[i]);
+            li.innerHTML = this.products[i].name + ': ' + this.products[i].price + ' Dkk';
+            li.appendChild(removeProductButton);
+
+            removeProductButton.addEventListener('click', function() {
+               const removeThisProduct = newShoppingCart.products[i];
+            //    console.log(newShoppingCart)
+               newShoppingCart.removeProduct(removeThisProduct, newShoppingCart, li);
+                
+            })
+            // for (let i = 0; i < newShoppingCart.products.length; i++) {
+            //     if (newShoppingCart.products[i].name === product) {
+            //         newShoppingCart.products.splice(i, 1);
+            //     }
+            // }
+            
+
+        }   
+
     }
 
     getUser(element) {
@@ -111,7 +118,7 @@ class ShoppingCart {
     }
 }
 
-function addProducts () {
+function addProductsToArray () {
     const dog = new Product('dog', 5000, 'Cute puppy who will be always there for you.');
     const kitty = new Product('kitty', 6000, 'Really lovely kitten.');
     const hamster = new Product('hamster', 3000, 'Great if you want to have something small.');
@@ -134,14 +141,15 @@ allProducts.push(dog, kitty, hamster, pizza, pasta, flatscreen);
 
 
 
-
+// Get product by input
 const button = document.querySelector('.input-button');
 button.addEventListener('click', function() {
-    
     const searchInputValue = document.querySelector('input').value;
     let matchedProductDescription;
     let matchedProduct;
-    let matchedProductPrice;
+    let matchedProductPriceInModal;
+    let addedProduct;
+    
     console.log('clicked');
     for (let i = 0; i < allProducts.length; i++) {
         // console.log(allProducts[2].name)
@@ -149,26 +157,37 @@ button.addEventListener('click', function() {
         if (searchInputValue === allProducts[i].name) {
             // console.log(searchInputValue + 'is found and it is: ' + allProducts[i].name)
             matchedProduct = allProducts[i].name;
+
             matchedProductDescription = allProducts[i].description;
             matchedProductPriceInModal = allProducts[i].price;
+            addedProduct = allProducts[i];
+            
             
         } if (!searchInputValue || searchInputValue !== allProducts[i].name) {
             errorMessage.style.display = 'inline-block';
         }
     }
+    const addToCartAction = addToCartButtonInProductInfo.addEventListener('click', function () {  
+        // add chosen product to the newShoppingCart array
+        newShoppingCart.products.push(addedProduct);
+        console.log(newShoppingCart)
+    })
     productTitle.innerHTML = matchedProduct.toUpperCase();
     productDescription.innerHTML = matchedProductDescription;
-    productPriceInModal .innerHTML = 'Price: ' + matchedProductPrice;
+    productPriceInModal .innerHTML = 'Price: ' + matchedProductPriceInModal;
+ 
+    
     toggleModal();  
 })
 
-
+// Remove error message on keypress
 searchInput.addEventListener('keypress', function() {
     errorMessage.style.display = 'none';
 })
-//modal
 
 
+
+//modal functions
 function toggleModal() {
     modal.classList.toggle('show-modal');
 }
@@ -179,10 +198,8 @@ function windowOnClick(event) {
     }
 }
 
-// trigger.addEventListener('click', toggleModal);
 closeButton.addEventListener('click', toggleModal);
 window.addEventListener('click', windowOnClick);
-
 
 let newShoppingCart = new ShoppingCart ([]);
 console.log(newShoppingCart)
@@ -217,6 +234,7 @@ listAllProducts();
 //Look at the shopping cart
 lookAtShoppingCartButton.addEventListener('click', toggleShoppingcartModal);
 closeButton2.addEventListener('click', toggleShoppingcartModal);
+
 window.addEventListener('click', windowOnClick);
 function toggleShoppingcartModal () {
     shoppingCartModal.classList.toggle('show-modal');
@@ -227,26 +245,25 @@ function toggleShoppingcartModal () {
         newShoppingCart.getUser(userNameDisplay);
         newShoppingCart.renderProducts(shoppingCartUl);
     }
-    
-
+    const totalAmount = document.querySelector('#total-price')
+    totalAmount.innerHTML = newShoppingCart.getTotal();
+    // totalLi.innerHTML = 'Total amount: ' + totalAmount;
 }
-// const myCart = new ShoppingCart([]);
-// myCart.addProduct(kitty);
-// myCart.addProduct(dog);
-// console.log(myCart)
 
-// const newShoppingCart = new ShoppingCart([flatscreen, dog, kitty])
-// console.log(allProducts);
+function refreshShoppingCart() {
+    newShoppingCart.renderProducts();
+    console.log(newShoppingCart)
+}
+
+// function logHello() {
+//     console.log('hrello')
+//     myArray.push('me');
+//     console.log(myArray)
+// }
+// const myArray = [];
+const meButton = document.querySelector('#me');
+meButton.addEventListener('click', refreshShoppingCart)
+
+// // meButton.removeEventListener('click', logHello);
 
 
-// newShoppingCart.addProduct(pizza);
-// newShoppingCart.addProduct(dog);
-// newShoppingCart.searchProduct(kitty);
-// newShoppingCart.addProduct(hamster)
-// newShoppingCart.getTotal();
-// // newShoppingCart.renderProducts();
-// newShoppingCart.getUser();
-
-// newShoppingCart.logAll();
-
-// console.log(newShoppingCart)
