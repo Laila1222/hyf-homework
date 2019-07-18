@@ -5,22 +5,30 @@
 </head>
 <body>
     <main>
-        <ul class="marks">
-            <li id="red-circle"></li>
-            <li id="green-circle"></li>
-            <li id="blue-circle"></li>
-        </ul>
-
-        <ul class="targets">
-            <li>Red target</li>
-            <li>Blue target</li>
-            <li>Green target</li>
-        </ul>
-        <span>👍</span>
-        <button id="all-at-once-button">Move all at once</button>
-        <button id="separately-button">Move them separately</button>
-        <button id="reset-button">Reset</button>
+        <div>
+            <ul class="marks">
+                <li id="red-circle"></li>
+                <li id="green-circle"></li>
+                <li id="blue-circle"></li>
+                </ul>
+        
+            <ul class="targets">
+                <li>Red target</li>
+                <li>Blue target</li>
+                <li>Green target</li>
+            </ul>
+            <span>👍</span>
+        </div>
+        <div class="buttons-container">
+            <button id="all-at-once-button">Move all at once</button>
+            <button id="separately-button">Move them separately</button>
+            <button id="reset-button">Reset</button>
+        </div>
+        
+        
     </main>
+
+    
     <script src="move-element.js"></script>
     <script src="main.js"></script>
 </body>

@@ -1,6 +1,6 @@
 body {
   font-family: "Open Sans", sans-serif;
-  background-color: #F9FBFD;
+  background-color: rgb(155, 240, 134);
 }
 
 * {
@@ -109,4 +109,10 @@ span.shown {
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 5rem;
+}
+
+.buttons-container {
+position: absolute;
+  margin: 1rem auto;
+  top: 55%;
 }
