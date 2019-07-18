@@ -128,7 +128,7 @@ function addProductsToArray () {
     allProducts.push(dog, kitty, hamster, pizza, pasta, flatscreen);
     return allProducts;
 }
-addProducts();
+addProductsToArray();
 
 const dog = new Product('dog', 5000, 'Cute puppy who will be always there for you.');
 const kitty = new Product('kitty', 6000, 'Really lovely kitten.');
