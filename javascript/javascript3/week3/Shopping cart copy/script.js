@@ -12,7 +12,8 @@ const lookAtShoppingCartButton = document.querySelector('.get-shoppingcart');
 const errorMessage = document.querySelector('.not-found-span');
 const searchInput = document.querySelector('input');
 const addToCartButtonInProductInfo = document.querySelector('#add-to-cart-in-product-info');
-const allProductsUl = document.querySelector('.all-products')
+const allProductsUl = document.querySelector('.all-products');
+const shoppingcartUl = document.querySelector('.shoppingcart-ul')
 
 
 
@@ -50,21 +51,20 @@ class ShoppingCart {
     }
 
     removeProduct(product, element) {
-        // console.log(product)
-        let refreshedShoppingCart;
+
         let removedElement;
         for (let i = 0; i < this.products.length; i++) {
             if (this.products[i].name === product) {
                 this.products.splice(i, 1);
                 removedElement = product;
             }
-            refreshedShoppingCart = this.products;
+            // refreshedShoppingCart = this.products;
         }
         element.parentNode.removeChild(element);
-        console.log(removedElement)
-        renderProducts(refreshedShoppingCart); itt hagytam abba, hogy itt be kéne renderelni az új listát!!
-        // console.log(refreshedShoppingCart)
-        // console.log(removedElement + 'has been removed');
+        const total = this.getTotal();
+        const totalPrice = document.querySelector('#total-price');
+        totalPrice.innerHTML = total;
+
         
     }
 
@@ -87,47 +87,53 @@ class ShoppingCart {
     }
 
     renderProducts() {
-        const shoppingcartUl = document.querySelector('.shoppingcart-ul');
-
-        for (let i= 0; i < this.products.length; i++) {
+        // clear shoppingcart
+        this.products.forEach(product => {
             const li = document.createElement('li');
             shoppingcartUl.appendChild(li); 
             li.innerHTML = this.products[i].name + ': ' + this.products[i].price + ' DKK';
-            // create remove from cart button
-            const removeFromCartButton = document.createElement('button');
-            removeFromCartButton.innerHTML = 'Remove From cart';
-            li.appendChild(removeFromCartButton);
-            const shoppingCart = this;
-            console.log(shoppingCart.products[i].name)
-            const totalPrice = document.querySelector('#total-price');
-            // console.log(totalPrice);
-            let total = this.getTotal();
-            if (total) {
-                totalPrice.innerHTML = 'Total price: ' + total;
-            } else {
-                totalPrice.innerHTML = 'Nothing in cart'
-            }
-            // console.log(shoppingCart.products[i].name)
-            let removeThisProduct;
+        });
+        
+
+    //     for (let i= 0; i < this.products.length; i++) {
+    //         const li = document.createElement('li');
+    //         shoppingcartUl.appendChild(li); 
+    //         li.innerHTML = this.products[i].name + ': ' + this.products[i].price + ' DKK';
+    //         // create remove from cart button
+    //         const removeFromCartButton = document.createElement('button');
+    //         removeFromCartButton.innerHTML = 'Remove From cart';
+    //         li.appendChild(removeFromCartButton);
+    //         const shoppingCart = this;
+    //         console.log(shoppingCart.products[i].name)
+    //         const totalPrice = document.querySelector('#total-price');
+    //         // console.log(totalPrice);
+    //         let total = this.getTotal();
+    //         if (total) {
+    //             totalPrice.innerHTML = 'Total price: ' + total;
+    //         } else {
+    //             totalPrice.innerHTML = 'Nothing in cart'
+    //         }
+    //         // console.log(shoppingCart.products[i].name)
+    //         let removeThisProduct;
 
 
-            removeFromCartButton.addEventListener('click', function() {
-                removeThisProduct = shoppingCart.products[i].name
-                    console.log(removeThisProduct);
+    //         removeFromCartButton.addEventListener('click', function() {
+    //             // console.log(shoppingCart.products[i])
+
                     
                     
-                    shoppingCart.removeProduct(removeThisProduct, li);
+    //                 shoppingCart.removeProduct(removeThisProduct, li);
 
-                    console.log(shoppingCart)
-                    // total = shoppingCart.getTotal();
-                    // // console.log(total);
-                    // totalPrice.innerHTML = 'Total: ' + total;
+    //             //     console.log(shoppingCart)
+    //                 // total = shoppingCart.getTotal();
+    //                 // // console.log(total);
+    //                 // totalPrice.innerHTML = 'Total: ' + total;
 
                 
                 
                  
-             })
-        }
+    //          })
+    //     }
 
     }
     
@@ -180,7 +186,7 @@ function renderProducts (products) {
         addToCartButton = document.createElement('button');
         addToCartButton.innerHTML = 'Add to cart';
         allProductsUl.appendChild(addToCartButton);
-        const shoppingcartUl = document.querySelector('.shoppingcart-ul')
+       
         addToCartButton.addEventListener('click', function() {
             cleanItems(shoppingcartUl);
             newShoppingCart.addProduct(products[i]);
@@ -285,7 +291,10 @@ function closeModal (modal) {
 
 
 //Look at the shopping cart
-// lookAtShoppingCartButton.addEventListener('click', toggleShoppingcartModal);
+lookAtShoppingCartButton.addEventListener('click', function() {
+    shoppingCartModal.style.display = 'flex';
+    newShoppingCart.renderProducts();
+});
 // closeButton2.addEventListener('click', toggleModal);
 
 window.addEventListener('click', windowOnClick);
