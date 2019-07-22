@@ -1,6 +1,7 @@
 // variables
 const modal = document.querySelector('.modal');
 const shoppingCartModal = document.querySelector('.shoppingcart-modal');
+const shoppingCartModalContent = document.querySelector('.shoppingcart-modal-content');
 const trigger = document.querySelector('.trigger');
 const closeButton = document.querySelector('.close-button');
 const closeButton2 = document.querySelector('.close-button2');
@@ -13,7 +14,9 @@ const errorMessage = document.querySelector('.not-found-span');
 const searchInput = document.querySelector('input');
 const addToCartButtonInProductInfo = document.querySelector('#add-to-cart-in-product-info');
 const allProductsUl = document.querySelector('.all-products');
-const shoppingcartUl = document.querySelector('.shoppingcart-ul')
+const shoppingcartUl = document.querySelector('.shoppingcart-ul');
+const purchaseButton = document.querySelector('.purchase-button');
+
 
 // if (document.readyState == 'loading') {
 //     document.addEventListener('DOMContentLoaded', ready)
@@ -67,14 +70,9 @@ class ShoppingCart {
         } else {
             this.products.push({name: productName, price: productPrice, imageSrc: productImage});
             this.renderProducts(productName, productPrice, productImage);
-        }
-    
-        
+        } 
     }
 
-    logAll () {
-        console.log(this.products)
-    }
 
     removeProduct(productName, event) {
         
@@ -87,9 +85,18 @@ class ShoppingCart {
             if (this.products[i].name === productName) {
                 this.products.splice(i, 1);
             }
+
+            if (!this.products[i]) {
+                purchaseButton.style.display = 'none';
+            }
         }
         console.log(productName.parentElement);
         updateCartTotal();  
+    }
+
+    removeAllProducts() {
+        this.products = [];
+        console.log(this.producst);
     }
 
 
@@ -108,15 +115,6 @@ class ShoppingCart {
             const priceElement = this.products[i].price;
             const priceInNumbers = parseInt(priceElement);
             total += priceInNumbers;
-
-            
-            // const quantityElement = ;
-            // const price = parseFloat(priceElement.innerText.replace('DKK', ''));
-
-            // const quantity = quantityElement.value;
-            // total = total + (price * quantity);
-            // total += price;
-            // console.log(total)
         }
         return total;
         
@@ -234,6 +232,10 @@ function addToCartClicked (event) {
     const imageSrc = shopItem.getElementsByClassName('item-image')[0].src;
     newShoppingCart.addProduct(title, price, imageSrc);
     updateCartTotal();
+    purchaseButton.style.display = 'block';
+
+
+
 }
 
 // function toggleShoppingcartModal() {
@@ -265,7 +267,18 @@ function updateCartTotal() {
     const newPrice = newShoppingCart.getTotal()
     const cartTotalPrice = document.querySelector('.cart-total-price');
     cartTotalPrice.innerText = newPrice; 
-    console.log(cartTotalPrice);
+}
+
+purchaseButton.addEventListener('click', purchaseClicked);
+function purchaseClicked() {
+    alert('Thank you for your purchase');
+    const cartItems = document.querySelector('.cart-items');
+    while (cartItems.hasChildNodes()) {
+        cartItems.removeChild(cartItems.firstChild);
+    }
+    newShoppingCart.removeAllProducts();
+    updateCartTotal();
+
 }
 
 // Get product by input
@@ -288,17 +301,25 @@ button.addEventListener('click', function() {
             matchedProductDescription = allProducts[i].description;
             matchedProductPriceInModal = allProducts[i].price;
             addedProduct = allProducts[i];
+            productUrl = allProducts[i].url;
+
+            
+        
+            
             
             
         } if (!searchInputValue || searchInputValue !== allProducts[i].name) {
             errorMessage.style.display = 'inline-block';
         }
     }
-    const addToCartAction = addToCartButtonInProductInfo.addEventListener('click', function () {  
+    
+    
+    addToCartButtonInProductInfo.addEventListener('click', function () {  
         // add chosen product to the newShoppingCart array
-        newShoppingCart.products.push(addedProduct);
-        console.log(newShoppingCart)
+        newShoppingCart.addProduct(matchedProduct, matchedProductPriceInModal, productUrl);
     })
+    const imageUrl = document.querySelector('.modal img');
+    imageUrl.src = productUrl;
     productTitle.innerHTML = matchedProduct.toUpperCase();
     productDescription.innerHTML = matchedProductDescription;
     productPriceInModal .innerHTML = 'Price: ' + matchedProductPriceInModal;
@@ -306,6 +327,7 @@ button.addEventListener('click', function() {
     
     toggleModal();  
 })
+
 
 // Remove error message on keypress
 searchInput.addEventListener('keypress', function() {
