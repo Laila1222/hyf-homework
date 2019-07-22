@@ -4,11 +4,16 @@ const closeButton = document.querySelector ('.close-button');
 const allProducts = [];
 const errorMessage = document.querySelector ('.not-found-span');
 const searchInput = document.querySelector ('input');
-const addToCartButtonInProductInfo = document.querySelector (
-  '#add-to-cart-in-product-info'
-);
 const purchaseButton = document.querySelector ('.purchase-button');
+const inputButton = document.querySelector ('.input-button');
 
+// Events
+purchaseButton.addEventListener ('click', purchaseClicked);
+inputButton.addEventListener ('click', openModalBySearchInput);
+closeButton.addEventListener ('click', toggleModal);
+window.addEventListener ('click', windowOnClick);
+
+// Product class
 class Product {
   constructor (name, price, description, url) {
     this.name = name;
@@ -112,18 +117,17 @@ class ShoppingCart {
     console.log (this.producst);
   }
 
-//   searchProduct (productName) {
-//     for (let product of this.products) {
-//       if (productName === product) {
-//         console.log (product);
-//       }
-//     }
-//   }
+  //   searchProduct (productName) {
+  //     for (let product of this.products) {
+  //       if (productName === product) {
+  //         console.log (product);
+  //       }
+  //     }
+  //   }
 
   getTotal () {
     let total = 0;
     for (let i = 0; i < this.products.length; i++) {
-      // total += this.products[i].price;
       const priceElement = this.products[i].price;
       const priceInNumbers = parseInt (priceElement);
       total += priceInNumbers;
@@ -138,13 +142,14 @@ class ShoppingCart {
     const li = document.createElement ('li');
     const cartRowContents = `
             <div class="cart-item cart-column">
-                <img class ="cart-item-image" alt="img" src="${itemUrl}" style="max-width:100px">
+                <img class ="cart-item-image" alt="img" src="${itemUrl}" >
                 <span class="cart-item-title">${itemName}</span>
+                <span class="cart-item-price">${itemPrice}</span>
                 <div class="cart-quantity cart-column">
                     <input class="cart-quantity-input" type="number" value="1">
                     <button class="btn btn-danger" type="button">Remove</button>
                 </div>
-                <span class="cart-item-price">${itemPrice}</span>
+                
             </div>`;
     li.innerHTML = cartRowContents;
     const shoppingcartUl = document.querySelector ('.shoppingcart-ul');
@@ -157,14 +162,17 @@ class ShoppingCart {
     li
       .getElementsByClassName ('cart-quantity-input')[0]
       .addEventListener ('change', quantityChanged);
+
+    const cartTotal = document.querySelector('.cart-total');
+    cartTotal.style.display = 'block';
     updateCartTotal ();
-    this.getUser()
+    this.getUser ();
   }
 
   getUser () {
     let userName;
-    const usernameDisplay = document.querySelector('.username');
-    // const h2 = document.querySelector('h2');
+    const usernameDisplay = document.querySelector ('.username');
+    // Get username from url
     fetch ('https://jsonplaceholder.typicode.com/users/1')
       .then (response => response.json ())
       .then (json => {
@@ -184,66 +192,67 @@ class ShoppingCart {
       });
   }
 }
+// create new shoppingcart
 let newShoppingCart = new ShoppingCart ([]);
-console.log (newShoppingCart);
+// console.log (newShoppingCart);
 
+// Render all products on page
 function renderProducts (products) {
-  console.log (products);
-
-  let addItemToCartButton;
-
   for (let i = 0; i < products.length; i++) {
     const shopItem = document.createElement ('li');
     const allProductsUl = document.querySelector ('.all-products');
     allProductsUl.appendChild (shopItem);
     // create div for each item
     const itemContainer = document.createElement ('div');
+    itemContainer.className = 'product-item-container';
     shopItem.appendChild (itemContainer);
+    // create item image
+    const itemImage = document.createElement ('img');
+    itemImage.className = 'item-image';
+    itemImage.src = products[i].url;
+    itemContainer.appendChild (itemImage);
     // create item name
     const itemName = document.createElement ('span');
     itemName.className = 'item-name';
     itemName.innerText = products[i].name;
     itemContainer.appendChild (itemName);
-    // create item image
-    const itemImage = document.createElement ('img');
-    itemImage.className = 'item-image';
-    itemImage.src = products[i].url;
-    itemImage.style.maxWidth = '100px';
-    itemContainer.appendChild (itemImage);
+    
     // create price
     const itemPrice = document.createElement ('span');
     itemPrice.className = 'item-price';
     itemPrice.innerText = products[i].price;
     itemContainer.appendChild (itemPrice);
+    const itemCurrency = document.createElement('span');
+    itemCurrency.innerHTML = 'DKK';
+    itemCurrency.className = 'item-currency';
+    itemContainer.appendChild(itemCurrency);
     // Create add to cart button
-    addItemToCartButton = document.createElement ('button');
+    const addItemToCartButton = document.createElement ('button');
+    addItemToCartButton.className = 'add-item-button'
     addItemToCartButton.innerHTML = 'Add to cart';
     itemContainer.appendChild (addItemToCartButton);
-
     addItemToCartButton.addEventListener ('click', addToCartClicked);
   }
 }
 
 renderProducts (allProducts);
 
+// Functions
+// Add to cart button is clicked
 function addToCartClicked (event) {
   const button = event.target;
   const shopItem = button.parentElement.parentElement;
   const title = shopItem.getElementsByClassName ('item-name')[0].innerText;
   const price = shopItem.getElementsByClassName ('item-price')[0].innerText;
-
   const imageSrc = shopItem.getElementsByClassName ('item-image')[0].src;
+  //   Add products to shoppingcart
   newShoppingCart.addProduct (title, price, imageSrc);
   updateCartTotal ();
+  //   Purchase button is visible
   purchaseButton.style.display = 'block';
 }
 
-function cleanItems (item) {
-  while (item.firstChild) {
-    item.removeChild (item.firstChild);
-  }
-}
-
+// Quantity of product is set to 1 by default and cannot be lower than 1
 function quantityChanged (event) {
   const input = event.target;
   if (isNaN (input.value) || input.value <= 0) {
@@ -252,19 +261,18 @@ function quantityChanged (event) {
   updateCartTotal ();
 }
 
+// Update total price
 function updateCartTotal () {
-  // const cartItemContainer = document.getElementsByClassName('cart-items')[0];
-  // console.log(cartItemContainer)
-  // console.log(newShoppingCart);
   const newPrice = newShoppingCart.getTotal ();
   const cartTotalPrice = document.querySelector ('.cart-total-price');
   cartTotalPrice.innerText = newPrice;
 }
 
-purchaseButton.addEventListener ('click', purchaseClicked);
+// When clicked on purchase button
 function purchaseClicked () {
   alert ('Thank you for your purchase');
   const cartItems = document.querySelector ('.cart-items');
+  //   Remove all products from shoppingcart
   while (cartItems.hasChildNodes ()) {
     cartItems.removeChild (cartItems.firstChild);
   }
@@ -273,32 +281,29 @@ function purchaseClicked () {
 }
 
 // Get product by input
-const button = document.querySelector ('.input-button');
-button.addEventListener ('click', function () {
+function openModalBySearchInput () {
   const searchInputValue = document.querySelector ('input').value;
   let matchedProductDescription;
   let matchedProduct;
   let matchedProductPriceInModal;
-  let addedProduct;
-
-  console.log ('clicked');
+  const addToCartButtonInProductInfo = document.querySelector (
+    '#add-to-cart-in-product-info'
+  );
+  // Go through all products
   for (let i = 0; i < allProducts.length; i++) {
-    // console.log(allProducts[2].name)
-
     if (searchInputValue === allProducts[i].name) {
-      // console.log(searchInputValue + 'is found and it is: ' + allProducts[i].name)
       matchedProduct = allProducts[i].name;
-
       matchedProductDescription = allProducts[i].description;
       matchedProductPriceInModal = allProducts[i].price;
       addedProduct = allProducts[i];
       productUrl = allProducts[i].url;
     }
+    //   If there's no input value, or doesn't match with names, display error
     if (!searchInputValue || searchInputValue !== allProducts[i].name) {
       errorMessage.style.display = 'inline-block';
     }
   }
-
+  // Add product to cart from modal
   addToCartButtonInProductInfo.addEventListener ('click', function () {
     // add chosen product to the newShoppingCart array
     newShoppingCart.addProduct (
@@ -307,24 +312,29 @@ button.addEventListener ('click', function () {
       productUrl
     );
   });
+  //Insert image
   const imageUrl = document.querySelector ('.modal img');
-  const productTitle = document.querySelector ('h4');
-  const productDescription = document.querySelector ('p');
-  const productPriceInModal = document.querySelector ('h5');
   imageUrl.src = productUrl;
+  // Insert product name
+  const productTitle = document.querySelector ('h4');
   productTitle.innerHTML = matchedProduct.toUpperCase ();
+  // Insert description
+  const productDescription = document.querySelector ('p');
   productDescription.innerHTML = matchedProductDescription;
+  // Insert price
+  const productPriceInModal = document.querySelector ('h5');
   productPriceInModal.innerHTML = 'Price: ' + matchedProductPriceInModal;
 
+  // Show modal
   toggleModal ();
-});
+}
 
 // Remove error message on keypress
 searchInput.addEventListener ('keypress', function () {
   errorMessage.style.display = 'none';
 });
 
-//modal functions
+//Show modal
 function toggleModal () {
   modal.classList.toggle ('show-modal');
 }
@@ -335,9 +345,7 @@ function windowOnClick (event) {
   }
 }
 
-closeButton.addEventListener ('click', toggleModal);
-window.addEventListener ('click', windowOnClick);
-
+// Close modal
 function closeModal (modal) {
   modal.style.display = 'none';
 }
