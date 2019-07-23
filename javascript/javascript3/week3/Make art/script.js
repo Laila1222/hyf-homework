@@ -1,6 +1,18 @@
 //Variables
 const canvas = document.querySelector ('canvas');
 const context = canvas.getContext ('2d');
+const drawButton = document.querySelector ('.draw');
+const randomDotsButton = document.querySelector ('.random-dots');
+const resetButton = document.querySelector ('.reset');
+const followCursorButton = document.querySelector ('.follow-cursor');
+
+// Events
+followCursorButton.addEventListener ('click', update);
+randomDotsButton.addEventListener ('click', drawRandomCircles);
+drawButton.addEventListener ('click', drawWithCursor);
+resetButton.addEventListener ('click', function () {
+  document.location.reload (true);
+});
 
 //Circle
 class Circle {
@@ -25,16 +37,9 @@ class Circle {
     context.fillStyle = this.fillColor;
     context.fill ();
   }
-
 }
 
-const firstCircle = new Circle (200, 200, 50, 45, 180, 'green');
-firstCircle.draw ();
-
-
-const secondCircle = new Circle (100, 100, 20, 0, 360, 'yellow');
-secondCircle.draw ();
-
+// Draw random circles
 function drawRandomCircles () {
   setInterval (() => {
     function getNewCircle () {
@@ -67,13 +72,12 @@ function drawRandomCircles () {
       );
     }
     const myRandomCircle = getNewCircle ();
-    console.log (myRandomCircle);
+    // console.log (myRandomCircle);
     myRandomCircle.draw ();
   }, 500);
 }
 
-drawRandomCircles ();
-
+// drawRandomCircles ();
 
 // Circle follows the cursor
 //Get Mouse Position
@@ -94,6 +98,13 @@ function update () {
   cursorCircle.draw ();
 
   requestAnimationFrame (update);
+}
+
+function drawWithCursor () {
+  const cursorCircle = new Circle (mouseX, mouseY, 10, 0, 360, 'blue');
+  cursorCircle.draw ();
+
+  requestAnimationFrame (drawWithCursor);
 }
 
 function getPosition (el) {
