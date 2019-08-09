@@ -1,0 +1,9 @@
+
+
+#list-of-emojis {
+    width: 90vw;
+    height: 20rem;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: scroll;
+}
