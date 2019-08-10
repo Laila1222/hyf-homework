@@ -1,6 +1,6 @@
 
 
-#list-of-emojis {
+#list-of-emojis, .favourite-emojis {
     width: 90vw;
     height: 20rem;
     display: flex;
