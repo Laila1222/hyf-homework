@@ -1,66 +1,65 @@
-
+// Variables
 const searchField = document.querySelector('#write-emoji');
-const searchButton = document.querySelector('#button');
-const showAllButton = document.querySelector('#show-all-btn');
 let listOfEmojis;
-// let newListOfEmojis;
 
 
 
-// Display all emojis
-function getEmojiFromApi () {
+// Fetch API
+function fetchEmojiApi () {
     fetch ('https://raw.githubusercontent.com/amio/emoji.json/master/emoji.json')
     .then(response => response.json())
     .then(json => {
+        // console.log(json)
         listOfEmojis = json;
-        console.log(listOfEmojis)
-        renderEmojis(listOfEmojis);
-    })   
+        console.log(listOfEmojis);
+        renderEmojis(listOfEmojis)
+    })
 }
-
 
 
 function renderEmojis (listOfEmojis) {
-    const emojiUL = document.querySelector('#list-of-emojis');
-    listOfEmojis.forEach((emoji) => {
-        // create li
-        const emojiLi = document.createElement('li');
+    const emojisUl = document.querySelector('#list-of-emojis');
+    emojisUl.innerHTML = '';
+
+    listOfEmojis.forEach(emoji => {
+        const emojiListItem = document.createElement('li');
 
         const emojiSpan = document.createElement('span');
         emojiSpan.innerHTML = emoji.char;
+        emojiListItem.appendChild(emojiSpan);
         emojiSpan.classList.add('emoji');
-        emojiLi.appendChild(emojiSpan);
 
         const nameSpan = document.createElement('span');
         nameSpan.innerHTML = emoji.name;
+        emojiListItem.appendChild(nameSpan); 
         nameSpan.classList.add('emojiName');
-        emojiLi.appendChild(nameSpan);
-
-
-        emojiUL.appendChild(emojiLi);
         
-    })
-    
-}
-getEmojiFromApi();
+        emojisUl.appendChild(emojiListItem);
 
+        emojiSpan.addEventListener('click', function (clicked) {
+            const emojiToCopy = clicked.target.innerHTML;
+            console.log(emojiToCopy)
+            writeToClipboard(emojiToCopy);
 
-
-
-searchField.addEventListener('keyup', function() {
-    const newListOfEmojis =  listOfEmojis.filter((emoji) => {
-		return emoji.name.toLowerCase().includes(searchField.value.toLowerCase());
+        });
     });
-    renderEmojis(newListOfEmojis)
+}
+
+fetchEmojiApi();
+
+
+
+function search () {
+    const searchValue = searchField.value;
+    console.log(searchValue);
+    const newListOfEmojis = listOfEmojis.filter(emoji => {
+        return emoji.name.toLowerCase().includes(searchValue.toLowerCase());
+    })
     console.log(newListOfEmojis);
+    renderEmojis(newListOfEmojis);
+}
 
-    
-})
+searchField.addEventListener('keyup', search);
 
-// console.log(newListOfEmojis)
 
-// searchButton.addEventListener('click', function ()  {
-//     console.log(newListOfEmojis);
-//     renderEmojis(newListOfEmojis)
-// }
-// )
+
