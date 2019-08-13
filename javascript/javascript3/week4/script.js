@@ -2,22 +2,22 @@
 const searchField = document.querySelector ('#write-emoji');
 const select = document.querySelector ('#categories');
 let listOfEmojis;
-const favouriteEmojiNames = [];
+const favouriteEmojiObjects = [];
 
 // Event listeners
 select.addEventListener ('change', function () {
-    const selectedCategory = this.value;
-    // console.log(selectedCategory);
-    showEmojiByCategory = listOfEmojis.filter (emoji => {
-      return emoji.category
-        .toLowerCase ()
-        .includes (selectedCategory.toLowerCase ());
-    });
-    // console.log(showEmojiByCategory)
-    renderEmojis (showEmojiByCategory);
+  const selectedCategory = this.value;
+  // console.log(selectedCategory);
+  showEmojiByCategory = listOfEmojis.filter (emoji => {
+    return emoji.category
+      .toLowerCase ()
+      .includes (selectedCategory.toLowerCase ());
   });
+  // console.log(showEmojiByCategory)
+  renderEmojis (showEmojiByCategory);
+});
 
-  searchField.addEventListener ('keyup', search);
+searchField.addEventListener ('keyup', search);
 
 // Fetch API
 function fetchEmojiApi () {
@@ -31,36 +31,37 @@ function fetchEmojiApi () {
       renderEmojis (listOfEmojis);
       // Render categories
       renderCategories (json);
-    // Check if thereis something in local storage
-      if (localStorage.getItem ('emojiName')) {
-        const emojiName = JSON.parse (localStorage.getItem ('emojiName'));
-        console.log (emojiName);
+      // Check if thereis something in local storage
+      if (localStorage.getItem ('emojiObject')) {
+        const savedEmojiNames = JSON.parse (
+          localStorage.getItem ('emojiObject')
+        );
+        console.log (savedEmojiNames);
 
-        renderFavouritesfromStorage (emojiName, listOfEmojis);
+        renderFavouritesFromStorage (savedEmojiNames);
       }
     });
 }
 
-
 function renderEmojis (listOfEmojis) {
   const emojisUl = document.querySelector ('#list-of-emojis');
   emojisUl.innerHTML = '';
-// Create li, span and button for each emoji
+  // Create li, span and button for each emoji
   listOfEmojis.forEach (emoji => {
     const emojiListItem = document.createElement ('li');
     const emojiAndNameDiv = document.createElement ('div');
-    emojiAndNameDiv.classList.add('emojis-div')
-// Add emoji picture
+    emojiAndNameDiv.classList.add ('emojis-div');
+    // Add emoji picture
     const emojiSpan = document.createElement ('span');
     emojiSpan.innerHTML = emoji.char;
     emojiAndNameDiv.appendChild (emojiSpan);
     emojiSpan.classList.add ('emoji');
-// Add emoji name
+    // Add emoji name
     const nameSpan = document.createElement ('span');
     nameSpan.innerHTML = emoji.name;
     emojiAndNameDiv.appendChild (nameSpan);
     nameSpan.classList.add ('emojiName');
-// Add button
+    // Add button
     const addToFavButton = document.createElement ('button');
     addToFavButton.innerHTML = 'Add to Favourite';
 
@@ -91,15 +92,14 @@ fetchEmojiApi ();
 // Search emoji by input
 function search () {
   const searchValue = searchField.value;
-//   console.log (searchValue);
+  //   console.log (searchValue);
   const newListOfEmojis = listOfEmojis.filter (emoji => {
     return emoji.name.toLowerCase ().includes (searchValue.toLowerCase ());
   });
-//   console.log (newListOfEmojis);
+  //   console.log (newListOfEmojis);
   renderEmojis (newListOfEmojis);
-//   console.log (renderFavourites (arrayOfFavEmojiNames));
+  //   console.log (renderFavourites (arrayOfFavEmojiNames));
 }
-
 
 // Get categories
 function renderCategories (jsonData) {
@@ -114,7 +114,6 @@ function renderCategories (jsonData) {
     select.appendChild (option);
   });
 }
-
 
 // Load favourite emojis
 function renderFavouriteEmojis (addedItem) {
@@ -136,25 +135,29 @@ function renderFavouriteEmojis (addedItem) {
 
 // Save favourite emojis to local storage
 function saveFavourites (favouriteEmoji) {
-  const emojiName = favouriteEmoji.querySelector ('.emojiName').innerHTML;
-  favouriteEmojiNames.push (emojiName);
-  // console.log(emojiName);
-  localStorage.setItem ('emojiName', JSON.stringify (favouriteEmojiNames));
-  console.log (favouriteEmojiNames);
+  const emojiObject = favouriteEmoji;
+  const emojiObjectString = emojiObject.outerHTML;
+
+  console.log (emojiObjectString);
+  favouriteEmojiObjects.push (emojiObjectString);
+  console.log (emojiObject);
+  localStorage.setItem ('emojiObject', JSON.stringify (favouriteEmojiObjects));
+  console.log (favouriteEmojiObjects);
 }
 
 // Load locally stored emojis
-function renderFavouritesfromStorage (emojiNameArray, arrayOfAllEmojis) {
-  let matchingNamesList;
+function renderFavouritesFromStorage (emojiNameArray) {
+  console.log (emojiNameArray);
   for (let i = 0; i < emojiNameArray.length; i++) {
-    matchingNamesList = arrayOfAllEmojis.filter (emoji => {
-      return emoji.name.includes (emojiNameArray[i]);
-    });
+    console.log (emojiNameArray[i]);
+    // renderFavouriteEmojis(emojiNameArray[i]);
+    convertAndRenderFromStorage (emojiNameArray[i]);
   }
-  console.log (matchingNamesList);
-  matchingNamesList.forEach (emoji => {
-    const item = document.createElement ('li');
-    console.log (item);
-    // renderFavouriteEmojis(item);
-  });
+}
+
+// Convert items from storage, and render as favourites
+function convertAndRenderFromStorage (addedItem) {
+  const addToFavouriteLi = document.createElement ('li');
+  addToFavouriteLi.innerHTML = addedItem;
+  renderFavouriteEmojis (addToFavouriteLi);
 }
