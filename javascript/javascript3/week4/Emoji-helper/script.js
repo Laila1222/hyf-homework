@@ -157,7 +157,7 @@ function renderFavouritesFromStorage (emojiNameArray) {
 
 // Convert items from storage, and render as favourites
 function convertAndRenderFromStorage (addedItem) {
-  const addToFavouriteLi = document.createElement ('li');
+  const addToFavouriteLi = document.createElement ('span');
   addToFavouriteLi.innerHTML = addedItem;
   renderFavouriteEmojis (addToFavouriteLi);
 }

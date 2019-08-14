@@ -7,28 +7,31 @@
     <title>Emoji-helper</title>
     <link href="https://fonts.googleapis.com/css?family=Khand|Nunito+Sans|Raleway&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width initial-scale=1">
     <script src="script.js" async></script>
     <script src="copy-to-clipboard.js" async></script>
 
 </head>
 <body>
     <header>
-        <h1>Find your Emoji</h1>
-        <img src="emoji-photo.jpg" alt="emoji-photo">
+        <div class="header-text">
+            <h1>Find your Emoji</h1>
+        </div>
+        
+        
         
     </header>
     <main>
         <div class="container">
-            <h2>Search for an emoji, or select by categories</h2>
-            <div class="search-div">
-                <div class="filter">
-                    <input type="text" id="write-emoji" placeholder="Search for an emoji">
-                    <select name="categories" id="categories">
-                        <option value="select">--Select Category--</option>
-                    </select>
-                </div>    
-                
-    
+            <div class="description">
+                <h2>Search for an emoji, or select by categories</h2>
+            </div>
+            
+            <div class="search-div wrapping">
+                <input type="text" id="write-emoji" placeholder="Search for an emoji">
+                <select name="categories" id="categories">
+                    <option value="select">--Select Category--</option>
+                </select>
             </div>
             <div class="emojis">
                 <h3>Click on emoji to copy</h2>
