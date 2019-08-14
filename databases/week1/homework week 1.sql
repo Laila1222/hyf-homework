@@ -1,4 +1,5 @@
--- use hyf19;
+ use hyf19;
+
 
 -- 1. Find out how many tasks are in the task table
 -- select count(id) as 'Number of tasks' from task;
@@ -18,12 +19,10 @@
 -- select * from task order by created desc;
 
 -- 6. Get the single most recently created task
--- select id, title, max(created) as 'Most recently created' from task;
--- or
 -- select * from task order by created desc limit 1;
 
 -- 7. Get the title and due date of all tasks where the title or description contains database
--- select title, due_date from task where title like '%database%';
+-- select title, description, due_date from task where (title like '%database%' or description like '%database%');
 
 -- 8. Get the title and status (as text) of all tasks
 -- select  task.title as 'Task' , status.name as 'Status' from task inner join status on status_id = status.id;
