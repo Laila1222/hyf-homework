@@ -2,7 +2,8 @@
 //Fastest presser game
 //Made by Lilla Kőrösi
 
-const startButton = document.querySelector ('button');
+const startButton = document.querySelector ('.start-button');
+const replayButton = document.querySelector('.replay-button');
 const selectSeconds = document.querySelector ('select');
 const seconds = selectSeconds.value;
 const mililSeconds = seconds * 1000;
@@ -27,6 +28,10 @@ startButton.addEventListener ('click', function () {
   startCountdown (numberOfSeconds);
   stopCountingKeyPres (mililSeconds);
 });
+
+replayButton.addEventListener('click', function () {
+  document.location.reload(true);
+})
 
 //The 'gameStarted' variable will become false again after the game is finished - so it won't count key presses
 function stopCountingKeyPres (delayTime) {
