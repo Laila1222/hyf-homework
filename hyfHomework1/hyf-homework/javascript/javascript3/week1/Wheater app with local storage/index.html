@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Hind+Madurai|Lora|Montserrat&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <div class="container">
+            <!-- Weather status interface -->
+                <h1>Weather status</h1>
+                <input id="input-location" type="text" placeholder="Type location here" >
+                <span id="error-message"></span>
+                <div class="buttons">
+                        <button id="input-location-button" onclick="locationButtonOnClick ()">Get temperature</button>
+                        <button id="current-location" onclick="currentLocationButtonOnClick()">Use my current location</button>
+                </div>
+                <!-- Weather info display -->
+            <section id="show-weather">
+                <div class="weather-main">
+                    <h2 id="city-name"></h2>
+                    <!-- <img alt="weather-icon"> -->
+                    <h3></h3>
+                    <p id="temperature"></p>
+                    <p id="clouds"></p>
+                    <p id="humidity"></p>
+                    <p id="min-temp"></p>
+                    <p id="max-temp"></p>
+                    <p id="sunrise"></p>
+                    <p id="sunset"></p>
+                    <p id="wind-speed"></p>
+                </div>
+                <!-- Google maps -->
+                <div id="map"></div>
+            </section>       
+    </div>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuZiptyl63Ijn3ZH4akMjXAqxZYk2eT1E&callback">
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
+
+

@@ -1,0 +1,266 @@
+/* CSS Reset */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+body {
+	line-height: 1;
+}
+
+ol, ul {
+	list-style: none;
+}
+
+blockquote, q {
+	quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* Background */
+body {
+    background-color: rgb(241, 231, 88);
+    min-width: 320px;
+}
+
+header {
+    background: url('emoji-photo.jpg') no-repeat 70% center/cover;
+	display: table;
+	text-align: center;
+	height: 100vh;
+	width: 100%;
+    
+}
+
+.header-text {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	width: 50%;
+	padding: 1rem;
+	background-color: rgb(255, 217, 46);
+    border-radius: 99999px;
+    box-shadow: 0 0 2px  2px #141414;
+}
+
+h1 {
+    font-size: 5rem;
+    font-family: 'Khand', sans-serif;
+    color: orange;
+    text-shadow: 2px 2px rgb(3, 3, 0);
+}
+
+
+.container {
+    width: 80%;   
+    margin: 2rem auto;
+}
+
+.wrapping {
+    margin: 2rem auto 2rem auto;
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+select, input {
+    padding: 1rem;
+    border-radius: 15px;
+    display: inline;
+    font-family: 'Raleway', sans-serif;
+    font-size: 1rem;
+}
+
+h3, h2 {
+    font-size: 1.5rem;
+    text-align: center;
+    background-color: orange;
+    padding: 1rem;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    font-family: 'Nunito Sans', sans-serif;
+
+}
+
+span {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1rem;
+}
+
+#list-of-emojis, #list-of-fav-emojis {
+    height: 30rem;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: scroll;
+    background-color: white;
+    justify-content: space-evenly;
+    
+    
+}
+
+.emojis, .favourite-emojis{
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    box-shadow: 0px 0px 19px 0px rgba(0,0,0,0.75);
+    
+}
+
+.emoji, .emojiName {
+    display: block;
+    margin: 1rem;
+    font-size: 1.2rem;  
+}
+
+.emojis ul, .favourite-emojis ul {
+    margin: 0rem auto;
+    padding: 1rem;
+}
+
+#list-of-emojis li, #list-of-fav-emojis li {
+    width: 10rem;
+    min-height: 10rem;
+    max-height: 12rem;
+    margin: 1rem;
+    border: 1px solid rgba(128, 128, 128, 0.137);
+    background-color: rgba(255, 224, 183, 0.329);
+    border-radius: 15px;
+    text-align: center;
+    cursor: pointer;
+}
+
+button {
+	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffffff), color-stop(1, #f6f6f6));
+	background:-moz-linear-gradient(top, #ffffff 5%, #f6f6f6 100%);
+	background:-webkit-linear-gradient(top, #ffffff 5%, #f6f6f6 100%);
+	background:-o-linear-gradient(top, #ffffff 5%, #f6f6f6 100%);
+	background:-ms-linear-gradient(top, #ffffff 5%, #f6f6f6 100%);
+	background:linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0);
+	background-color:#ffffff;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	cursor:pointer;
+	color:#353333;
+	font-family: 'Raleway', sans-serif;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+    text-shadow:0px 1px 0px #ffffff;
+    margin: 1rem;
+}
+
+button:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f6f6f6), color-stop(1, #ffffff));
+	background:-moz-linear-gradient(top, #f6f6f6 5%, #ffffff 100%);
+	background:-webkit-linear-gradient(top, #f6f6f6 5%, #ffffff 100%);
+	background:-o-linear-gradient(top, #f6f6f6 5%, #ffffff 100%);
+	background:-ms-linear-gradient(top, #f6f6f6 5%, #ffffff 100%);
+	background:linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f6f6f6', endColorstr='#ffffff',GradientType=0);
+	background-color:#f6f6f6;
+}
+
+button:active {
+	position:relative;
+	top:1px;
+}
+
+/* Media querries */
+/* For tablets - landscape */
+@media (min-width: 768px) and (max-width: 1024px) {
+    h1 {
+        font-size: 7vw;
+    }
+    h2, h3 {
+        font-size: 3vw;
+    }
+    
+}
+
+/* For Low Resolution Tablets, Mobiles (Landscape) */
+@media (min-width: 481px) and (max-width: 767px) {
+    h1 {
+        font-size: 7vw;
+    }
+    select, input {
+        font-size: 2.7vw;
+    }
+    
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+    h1 {
+        font-size: 15vw;
+    }
+
+    .wrapping {
+        display: block;
+    }
+
+    select {
+        width: 100%;
+        margin: 1rem 0;
+    }
+
+    input {
+        width: 87%;
+        margin: 1rem auto;
+    }
+
+    .emojiName {
+        font-size: .8rem;
+    }
+
+    .emojis ul, .favourite-emojis ul {
+        padding: .2rem;
+    }
+
+    button {
+        font-size: .7rem;
+        padding: .5rem .3rem;
+        margin: .5rem;
+    }
+}

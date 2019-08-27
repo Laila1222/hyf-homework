@@ -1,0 +1,255 @@
+/* Global */
+body {
+    width: 100vw;
+}
+
+.container {
+    display: flex;
+}
+
+.left-side {
+    width: 70%;
+    background-color: rgba(251, 251, 251, 0.3);
+}
+
+.left-side-content {
+    margin: 0 auto;
+    width: 100%;
+
+}
+
+h2 {
+    font-size: 2.5rem;
+    font-family: 'Barrio', cursive;
+    margin: 2rem;
+}
+
+span {
+    font-family: 'Mukta', sans-serif;
+}
+
+.shop-items {
+    width: 100%;
+}
+
+.search-field {
+    display: flex;
+    background-color: rgba(108, 114, 96, 0.301)
+
+}
+
+input {
+    padding: 1rem;
+    border-radius: 28px;
+    font-family: 'Barrio', cursive;
+    width: 100%;
+    margin: 1rem;
+    font-size: 1.5rem;
+}
+
+.input-button {
+    margin: 1rem;
+}
+
+.product-item-container {
+    background-color: rgba(223, 223, 212, 0.397);
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    margin: 1rem;
+    padding: 2rem;
+    border-radius: 28px;
+    box-shadow: 0px 0px 10px #aaaaaa;
+}
+
+.item-name {
+    text-transform: capitalize;
+    padding: 1rem;
+    font-size: 2rem;
+}
+
+.item-image {
+    width: 13rem;
+}
+
+.item-name,  .item-image, .add-item-button  {
+    display: block;
+    padding: 1rem;
+}
+
+.add-item-button {
+    margin: 1rem auto;
+}
+
+.item-currency, .item-price {
+    display: inline-block;
+    font-size: 1.5rem;
+}
+
+.all-products {
+    padding: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.shop-items {
+    margin: 1rem;
+    padding: 1rem;
+    text-align: center;
+    
+}
+.right-side {
+    width: 30%;
+    background-color: rgba(251, 251, 251, 0.3);
+    border-left: 1px solid rgba(75, 75, 71, 0.397);
+    
+}
+
+header {
+    width: 100%;
+    height: 10vh;
+    background-color: rgb(12, 149, 12);
+    position: relative;
+}
+
+h1 {
+    position: absolute;
+    top: 50%;
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    font-family: 'Rosario', sans-serif;
+    font-style: italic;
+    font-size: 3rem;
+    color: rgb(203, 206, 199)
+}
+
+
+
+.modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(1.1);
+    transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+}
+
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 1rem 1.5rem;
+    width: 24rem;
+    border-radius: 0.5rem;
+}
+
+.close-button, .close-button2 {
+    float: rigth;
+    width: 1.5rem;
+    line-height: 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    background-color: lightgray; 
+}
+
+.close-button:hover, .close-button2:hover {
+    background-color: darkgray;
+}
+
+.show-modal {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1.0);
+    transition: visibility 0s linear 0s;
+}
+
+
+.not-found-span {
+    display: none;
+}
+
+.shoppingcart-header {
+    background-color:rgba(11, 105, 11, 0.945);
+}
+
+.shoppingcart-modal {
+    width: 100%;
+}
+
+.shoppingcart-header h3, .shoppingcart-header h4 {
+    text-align: center;
+    padding-top: 1rem;
+    font-size: 1.3rem;
+    font-family: 'Mukta', sans-serif;
+    color: rgb(203, 206, 199);
+}
+
+.shoppingcart-header h3 {
+    padding-top: 1.5rem;
+}
+
+.shoppingcart-modal-content {
+    width: 100%;
+}
+
+.cart-item {
+    background: #aaaaaa;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.cart-item-image {
+    width: 8rem;
+    padding: 1rem;
+}
+
+.cart-item-title, .cart-item-price {
+    font-family: 'Mukta', sans-serif;
+    font-size: 1.2rem;
+    padding: 1rem;
+}
+
+.cart-quantity-input {
+    width: 10%;
+    display: inline-block;
+}
+
+.purchase-button {
+    display: none;
+}
+
+.cart-total {
+    display: none;
+}
+
+/* all buttons */
+
+button {
+	background-color:#ee611f;
+	-moz-border-radius:28px;
+	-webkit-border-radius:28px;
+	border-radius:28px;
+	border:1px solid #e75e1e;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	padding:16px 31px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #9b3021;
+}
+button:hover {
+	background-color:#cf2c04;
+}
+button:active {
+	position:relative;
+	top:1px;
+}
