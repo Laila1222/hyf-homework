@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    
+</head>
+<body>
+    <h1>Spirit animal name</h1>
+    <h3>How do you want to display the result?</h3>
+    <div>
+        <form action="something">
+            <input type="radio" name="options" value="click"  onclick="displayTypes()">Click<br>
+            <input type="radio" name="options" value="hover"  onclick="displayTypes()">Hover<br>
+            <input type="radio" name="options" value="type"  onclick="displayTypes()">Type<br>
+        </form>
+           
+        
+    </div>
+    
+    <div>
+        <input type="text" id="nameInput" placeholder="Write your name here">
+        <button id="btn">Get spirit animal</button>
+    </div>
+    <div>
+        <h2>Your spirit animal name is:</h2>
+        <h3 id="displayName"></h3>
+    </div>
+
+    <script src="spiritAnimal.js"></script>
+</body>
+</html>

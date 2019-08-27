@@ -1,0 +1,54 @@
+<!-- Homework for Hack Your Future - JavaScript2 Week 3
+Fastest presser game
+Made by Lilla Kőrösi -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Karma|Luckiest+Guy|Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Fastest presser</h1>
+            <p>Can you press a key on your keyboard faster than your opponent? <br>Find it out!</p>
+        </div> 
+    </header>
+    <div class="setGame">
+        <div class="container"></div>
+        <h2 class="inlineBlock">1. Set the time</h2>
+        <select name="seconds" id="selectSeconds" class="select-time inlineBlock">
+            <option value="5">5 seconds</option>
+            <option value="10">10 seconds</option>
+            <option value="20">20 seconds</option>
+            <option value="30">30 seconds</option>
+        </select>
+        <h2 class="inlineBlock start-game-sign">2. Press to start the game!</h2>
+        <button class="inlineBlock start-button">Start game!</button>  
+        <button class="replay-btn">Replay</button> 
+    </div>
+    <div class="countdown-timer"><span id="countdown"></span></div>
+    <section>        
+        <div class="containerClickArea">
+            <!-- <canvas id="canvasLeft"> -->
+                <div class="clickArea" id="clickAreaLeft">
+                    <h2 class="pressKey pressS">Press S</h2>
+                    <h3 class="counterLeft"></h3>
+                </div>
+            <!-- </canvas> -->
+            <!-- <canvas id="canvasRight"> -->
+                <div class="clickArea" id="clickAreaRight">
+                    <h2 class="pressKey pressL">Press L</h2>
+                    <h3 class="counterRight"></h3>
+                </div>
+            <!-- </canvas> -->                
+        </div>
+    </section>
+    <script src="script.js"></script>
+</body>
+</html>
